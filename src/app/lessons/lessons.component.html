@@ -1,0 +1,21 @@
+<div id="google_translate_element">The Translate Element Should Appear Here</div>
+
+<p>Bound Content: {{lesson.id}}: {{lesson.content}}</p>
+<div translate="no">
+    <label for="lesson">Text to be Converted: </label>
+    <textarea id="lesson" [(ngModel)]="lesson.content" placeholder="Blank"></textarea>
+    <button type="button" (click)="onGenerate(lesson)">Generate Lesson</button>
+</div>
+
+<div translate="no">
+    Original: {{originalLesson}}
+</div>
+
+<div translate="yes">
+    Translated: {{translatedLesson}}
+    <br>
+</div>
+
+<div *ngFor="let line of lessonArray">
+    <span>{{line}}</span><button class="headphones"><i class="fa fa-headphones"></i></button>
+</div>
