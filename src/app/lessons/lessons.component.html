@@ -1,21 +1,42 @@
-<div id="google_translate_element">The Translate Element Should Appear Here</div>
 
-<p>Bound Content: {{lesson.id}}: {{lesson.content}}</p>
-<div translate="no">
-    <label for="lesson">Text to be Converted: </label>
-    <textarea id="lesson" [(ngModel)]="lesson.content" placeholder="Blank"></textarea>
-    <button type="button" (click)="onGenerate(lesson)">Generate Lesson</button>
-</div>
+<form>
+<span translate="no">
+    <div class="grid">
+    <h2>Enter your text below: </h2>
+    <button class="header-btn" type="button" (click)="clearText()">Clear Text</button>
+    <button class="header-btn" type="button" (click)="pasteText()">Paste Text</button>
+    </div>
+    <textarea id="lesson" placeholder="Blank">{{lesson.content}}</textarea>
+</span>
+    
+<div><label>You can choose a voice for the original text.</label></div> 
+<div translate="yes"><select #language> 
+    <option value="zh-CN">Chinese (Simplified)</option>
+    <option value="nl-NL">Dutch (Netherlands)</option>
+    <option value="en-CA" selected>English</option>
+    <option value="fil-PH">Filipino (Philippines)</option>
+    <option value="fr-FR">French (France)</option>
+    <option value="de-DE">German (Germany)</option>
+    <option value="it-IT">Italian (Italy)</option>
+    <option value="ja-JP">Japanese (Japan)</option>
+    <option value="pt-PT">Portuguese (Portugal)</option>
+    <option value="ru-RU">Russian (Russia)</option>
+    <option value="es-ES">Spanish (Spain)</option>
+    <option value="es-MX">Spanish (Mexico)</option>
+    <option value="th-TH">Thai (Thailand)</option>
+    <option value="uk-UA">Ukrainian (Ukraine)</option>
+</select></div><br>
+<div><label>What language should the text be translated to?</label>
+<span id="google_translate_element"></span></div>
+<button class="green" type="button" (click)="onGenerate(lesson)">Generate Lesson</button>
+</form>
 
-<div translate="no">
-    Original: {{originalLesson}}
-</div>
 
-<div translate="yes">
-    Translated: {{translatedLesson}}
-    <br>
-</div>
-
-<div *ngFor="let line of lessonArray">
-    <span>{{line}}</span><button class="headphones"><i class="fa fa-headphones"></i></button>
+<div class="lesson" *ngFor="let line of lessonArray">
+    <div class="original"><span>{{line}}</span>
+    <button type="button" class="headphones" (click)="readUtterance(line, language.value)"><i class="fa fa-headphones"></i></button>
+    </div>
+    <span class="translated" #translatedSpan translate="yes">{{copyLine(line)}}</span>
+    <button type="button" class="headphones" (click)="readUtterance(translatedSpan.textContent || '')"><i
+            class="fa fa-headphones"></i></button>
 </div>
