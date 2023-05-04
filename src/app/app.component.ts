@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Level Up Languages';
+  title = 'Line-by-Line Reading Tool';
 }

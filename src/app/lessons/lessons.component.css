@@ -1,17 +1,53 @@
 textarea {
-    width: 100%;
+    width: 99.5%;
     min-height: 300px;
-}
-
-div  {
-    display: block;
+    font-size: larger;
 }
 
 button.headphones {
     display: inline;
     padding: 2px;
     margin-top: 0;
-    margin-bottom: .5 rem;
 }
 
+.original {
+    font-weight: 600;
+    margin-bottom: -15px;
+}
 
+.lesson {
+    font-size: larger;
+}
+
+label {
+    font-weight: 600;
+}
+
+.header-btn {
+    align-self: flex-end;
+    margin-bottom: 5px;
+    margin-right: 0px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 60% 20% 20%;
+    grid-gap: 2px;
+    justify-self: center;
+    margin: 0%;
+  }
+  
+  .grid h2 {
+    margin: 0px;
+    align-self: self-end;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .green {
+    background-color: #20af0e75;
+  }
