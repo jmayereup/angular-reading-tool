@@ -6,17 +6,25 @@ import { createCustomElement } from '@angular/elements';
 
 import { AppComponent } from './app.component';
 import { LessonsComponent } from './lessons/lessons.component';
+import { LblComponent } from './lbl/lbl.component';
+
+export function windowProvider() {
+  return window;
+}
 
 @NgModule({
   declarations: [
     AppComponent,
-    LessonsComponent
+    LessonsComponent,
+    LblComponent
   ],
   imports: [
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: 'window', useFactory: windowProvider }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

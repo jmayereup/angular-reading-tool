@@ -1,0 +1,93 @@
+body, input[type="text"], button {
+    color: #333;
+  }
+
+ * {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+h1 {
+    color: #369;
+    font-family: Times, 'Times New Roman', serif;
+    font-size: 250%;
+  }
+  h2, h3 {
+    color: #444;
+    font-family: Times, 'Times New Roman', serif;
+    font-weight: lighter;
+  }
+  body {
+    margin: 2em;
+  }
+  body, input[type="text"], button {
+    color: #333;
+  }
+  .original {
+    font-weight: 600;
+    margin-bottom: -15px;
+}
+
+details {
+    font-size: large;
+}
+.lesson {
+    font-size: large;
+}
+
+label {
+    font-weight: 600;
+}
+button {
+    padding: .5rem;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-size: 1em;
+}
+
+
+button {
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: black;
+    font-size: 1.2rem;
+    font-size: 1em;
+    padding: .5rem;
+
+}
+  button:hover {
+    background-color: #20af0e75;
+    color: white;
+  }
+
+  button:disabled {
+    background-color: #eee;
+    color: #aaa;
+    cursor: auto;
+  }
+
+  button.headphones {
+    display: inline;
+    padding: .2rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+  
+details {
+    border-radius: 4px;
+    padding: .25em;
+    background-color: #eee;
+    margin-bottom: 5px;
+
+  }
+  
+  details summary {
+    cursor: pointer;
+    padding-bottom: .5rem;
+  }
+
+  .detailsText {
+    margin-top: .5rem;
+  }
+  
+

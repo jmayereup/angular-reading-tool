@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Lesson } from '../lesson';
+import { LblComponent } from '../lbl/lbl.component';
 
 @Component({
   selector: 'app-lessons',
@@ -8,6 +9,7 @@ import { Lesson } from '../lesson';
 })
 export class LessonsComponent {
   
+
   lesson: Lesson = {
     id: 1,
     content: 
@@ -18,37 +20,38 @@ Click Generate Lesson.`
   
   }
 
-  originalLesson? : string;
+  originalLesson : string = "";
   translatedLesson? : string;
   translatedLine? : string = "Not Translated Yet";
-  lessonArray? : string[];
+  lessonArray : string[] = [];
   rate: number = .7;
+  selectedLanguage = 'en-CA';
   // utterance? : SpeechSynthesisUtterance;
  
   onGenerate(lesson: Lesson): void {
-    this.lessonArray = this.splitByLineBreaks(lesson.content);
+    // this.lessonArray = this.splitByLineBreaks(lesson.content);
     this.originalLesson = this.copyContent(lesson);
     this.translatedLesson = this.copyContent(lesson);
-    
+    console.log(this.lessonArray);
   }
 
-  splitByLineBreaks(str: string): string[] {
-    if (!str) {
-      return [];
-    }
-    let regex = /\r?\n|\r/g;
-    let result = str.split(regex);
-    return result;
-  }
+  // splitByLineBreaks(str: string): string[] {
+  //   if (!str) {
+  //     return [];
+  //   }
+  //   let regex = /\r?\n|\r/g;
+  //   let result = str.split(regex);
+  //   return result;
+  // }
 
   copyContent(lesson : Lesson): string {
     return this.lesson.content;
   }
 
-  copyLine(line: string): string {
-    this.translatedLine = line;
-    return this.translatedLine;
-  }
+  // copyLine(line: string): string {
+  //   this.translatedLine = line;
+  //   return this.translatedLine;
+  // }
   
   addLineBreaks(text: string): string {
     return text.replace(/([.?!])\s*(?=[A-Z])/g, '$1\n');
@@ -72,19 +75,19 @@ Click Generate Lesson.`
     this.lesson.content = "";
   }
 
-  readUtterance(line: string, lang?: string): void {
-    console.log("readtext called", line);
-    let currentLang = document.documentElement.lang;
+  // readUtterance(line: string, lang?: string): void {
+  //   console.log("readtext called", line);
+  //   let currentLang = document.documentElement.lang;
 
-    let utterance = new SpeechSynthesisUtterance(line);
-    utterance.lang = "en-US";
-    if (!lang) {
-      utterance.lang = currentLang;
-    } else utterance.lang = lang;
-    utterance.rate = this.rate;
-    window.speechSynthesis.speak(utterance);
+  //   let utterance = new SpeechSynthesisUtterance(line);
+  //   utterance.lang = "en-US";
+  //   if (!lang) {
+  //     utterance.lang = currentLang;
+  //   } else utterance.lang = lang;
+  //   utterance.rate = this.rate;
+  //   window.speechSynthesis.speak(utterance);
     
-  }
+  // }
 
   
 

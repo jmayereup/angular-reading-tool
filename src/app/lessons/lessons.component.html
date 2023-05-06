@@ -19,7 +19,7 @@
             <span id="google_translate_element"></span>
         </div>
         <div><label>You can choose a voice for the source text: </label>
-            <select #language>
+            <select #language name="selectedLanguage" [(ngModel)]="selectedLanguage">
                 <option value="zh-CN">Chinese (Simplified)</option>
                 <option value="nl-NL">Dutch (Netherlands)</option>
                 <option value="en-CA" selected>English</option>
@@ -57,9 +57,9 @@
         </span>
       </div>
 </form>
+<app-lbl [selectedLanguage]="selectedLanguage" [rate]="rate" [originalText]="originalLesson"></app-lbl>
 
-
-<div class="lesson" *ngFor="let line of lessonArray">
+<!-- <div class="lesson" *ngFor="let line of lessonArray">
     <div class="original"><span>{{line}}</span>
         <button type="button" class="headphones" (click)="readUtterance(line, language.value)"><i
                 class="fa fa-headphones"></i></button>
@@ -70,4 +70,4 @@
 </div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+ -->

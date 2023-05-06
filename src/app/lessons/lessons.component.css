@@ -23,8 +23,8 @@ button {
   font-size: 1.2rem;
   padding: 1rem;
   margin-right: 1rem;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+  margin-bottom: .5rem;
+  margin-top: .5rem;
 }
 button:hover {
   background-color: black;
@@ -44,28 +44,19 @@ button:disabled {
 textarea {
     width: 99.5%;
     min-height: 300px;
-    font-size: larger;
+    font-size: large;
 }
 
 button {
     padding: .5rem;
     margin-left: 0px;
     margin-right: 0px;
-    font-size: 1em;
+    font-size: larger;
 }
 button.headphones {
     display: inline;
     padding: 2px;
     margin-top: 0;
-}
-
-.original {
-    font-weight: 600;
-    margin-bottom: -15px;
-}
-
-.lesson {
-    font-size: larger;
 }
 
 label {
@@ -119,6 +110,7 @@ form {
     margin-bottom: 15px;
     font-size: 1em;
     text-align: center;
+    border-radius: 4px;
 
   }
 
