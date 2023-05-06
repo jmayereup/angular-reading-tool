@@ -4,6 +4,11 @@ textarea {
     font-size: larger;
 }
 
+button {
+    padding: .5rem;
+    margin-left: 0px;
+    margin-right: 0px;
+}
 button.headphones {
     display: inline;
     padding: 2px;
@@ -43,11 +48,27 @@ form {
   }
   
   .grid h2 {
-    margin: 0px;
+    margin: 0px 0px 5px 0px;
     align-self: self-end;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
+  }
+
+  .grid2 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 2px;
+    justify-self: center;
+    margin: 0%;
   }
 
   .green {
     background-color: #20af0e75;
+  }
+
+  .radio-group {
+    display: inline;
+    background-color: lightgray;
+    padding: 5px;
+    margin-bottom: 15px;
+
   }

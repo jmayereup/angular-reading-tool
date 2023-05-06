@@ -15,12 +15,14 @@ export class LessonsComponent {
 Each sentence should be divided by lines. 
 Then choose the translation language.
 Click Generate Lesson.`
+  
   }
 
   originalLesson? : string;
   translatedLesson? : string;
   translatedLine? : string = "Not Translated Yet";
   lessonArray? : string[];
+  rate: number = .7;
   // utterance? : SpeechSynthesisUtterance;
  
   onGenerate(lesson: Lesson): void {
@@ -79,7 +81,7 @@ Click Generate Lesson.`
     if (!lang) {
       utterance.lang = currentLang;
     } else utterance.lang = lang;
-    utterance.rate = 1;
+    utterance.rate = this.rate;
     window.speechSynthesis.speak(utterance);
     
   }
