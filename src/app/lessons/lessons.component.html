@@ -1,18 +1,24 @@
+
 <form>
-    <span translate="no">
+    <span translate="yes">
+        <div>You can use this tool to help with reading your own texts.<br><br>
+            Try going to <a href="https://ai.com" target="_blank">ai.com</a> and ask it for a dialogue or story about anything. 
+            <br>Then paste the results in the box below.
+            <br><br><strong>Example Prompt:</strong> Please create a short and easy dialogue between two people discussing a new park.
+           </div>
         <div class="grid">
-            <h2>Enter your text below: </h2>
-            <button class="header-btn" type="button" (click)="clearText()">Clear Text</button>
-            <button class="header-btn" type="button" (click)="pasteText()">Paste Text</button>
+            <h2>SOURCE TEXT:</h2>
+            <button class="header-btn" type="button" (click)="clearText()">Clear</button>
+            <button class="header-btn" type="button" (click)="pasteText()">Paste</button>
         </div>
         <textarea id="lesson" placeholder="Blank">{{lesson.content}}</textarea>
     </span>
 
     <div class="grid2" translate="yes">
-        <div><label>What language should the text be translated to?</label>
+        <div><label>Choose the translation langauge: </label>
             <span id="google_translate_element"></span>
         </div>
-        <div><label>You can choose a voice for the original text.</label>
+        <div><label>You can choose a voice for the source text: </label>
             <select #language>
                 <option value="zh-CN">Chinese (Simplified)</option>
                 <option value="nl-NL">Dutch (Netherlands)</option>
@@ -32,16 +38,24 @@
         </div>
     </div>
     <button class="green" type="button" (click)="onGenerate(lesson)">Generate Lesson</button>
-    <div class="radio-group"><strong>Speech Rate:</strong> <label>
-        <input type="radio" name="rate" [(ngModel)]="rate" [value]="0.7" /> Slow
-      </label>
-      <label>
-        <input type="radio" name="rate" [(ngModel)]="rate" [value]="1" /> Normal
-      </label>
-      <label>
-        <input type="radio" name="rate" [(ngModel)]="rate" [value]="1.2" /> Fast
-      </label>
-    </div>
+    <div class="radio-group">
+        <strong>Voice Speed:</strong>
+        <span>
+          <label>
+            <input type="radio" name="rate" [(ngModel)]="rate" [value]="0.7" /> Slow
+          </label>
+        </span>
+        <span>
+          <label>
+            <input type="radio" name="rate" [(ngModel)]="rate" [value]="1" /> Normal
+          </label>
+        </span>
+        <span>
+          <label>
+            <input type="radio" name="rate" [(ngModel)]="rate" [value]="1.2" /> Fast
+          </label>
+        </span>
+      </div>
 </form>
 
 
@@ -54,3 +68,6 @@
     <button type="button" class="headphones" (click)="readUtterance(translatedSpan.textContent || '')"><i
             class="fa fa-headphones"></i></button>
 </div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
