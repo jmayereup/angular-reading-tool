@@ -11,7 +11,7 @@
             <button class="header-btn" type="button" (click)="clearText()">Clear</button>
             <button class="header-btn" type="button" (click)="pasteText()">Paste</button>
         </div>
-        <textarea id="lesson" placeholder="Blank">{{lesson.content}}</textarea>
+        <textarea name="lesson" placeholder="Blank" [(ngModel)]="lesson.content">{{lesson.content}}</textarea>
     </span>
 
     <div class="grid2" translate="yes">
