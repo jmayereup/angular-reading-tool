@@ -1,6 +1,6 @@
 
 <form>
-    <span translate="yes">
+    <span *ngIf="!isBlogPost" translate="yes">
         <div>You can use this tool to help with reading your own texts.<br><br>
             Try going to <a href="https://ai.com" target="_blank">ai.com</a> and ask it for a dialogue or story about anything. 
             <br>Then paste the results in the box below.
@@ -37,7 +37,7 @@
             </select>
         </div>
     </div>
-    <button class="green" type="button" (click)="onGenerate(lesson)">Generate Lesson</button>
+    <button *ngIf='!isBlogPost' class="green" type="button" (click)="onGenerate(lesson)">Generate Lesson</button>
     <div class="radio-group">
         <strong>Voice Speed:</strong>
         <span>

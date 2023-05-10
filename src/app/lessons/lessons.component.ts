@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson';
 import { LblComponent } from '../lbl/lbl.component';
 
@@ -7,7 +7,7 @@ import { LblComponent } from '../lbl/lbl.component';
   templateUrl: './lessons.component.html',
   styleUrls: ['./lessons.component.css']
 })
-export class LessonsComponent {
+export class LessonsComponent implements OnInit {
   
 
   lesson: Lesson = {
@@ -26,8 +26,19 @@ Click Generate Lesson.`
   lessonArray : string[] = [];
   rate: number = .7;
   selectedLanguage = 'en-CA';
+  isBlogPost : boolean = false;
   // utterance? : SpeechSynthesisUtterance;
- 
+
+  
+  ngOnInit() {
+    const sourceTextElement = document.getElementById('source-text');
+    if (sourceTextElement?.textContent) {
+      this.lesson.content = sourceTextElement.textContent;
+      this.isBlogPost = true;
+      this.onGenerate(this.lesson);
+    }
+  }
+
   onGenerate(lesson: Lesson): void {
     // this.lessonArray = this.splitByLineBreaks(lesson.content);
     this.originalLesson = this.copyContent(lesson);
