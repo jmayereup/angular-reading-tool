@@ -27,6 +27,7 @@ Click Generate Lesson.`
   rate: number = .7;
   selectedLanguage = 'en-CA';
   isBlogPost : boolean = false;
+  ttsSupported : boolean = false;
   // utterance? : SpeechSynthesisUtterance;
 
   
@@ -36,8 +37,13 @@ Click Generate Lesson.`
       this.lesson.content = sourceTextElement.textContent;
       this.isBlogPost = true;
       this.onGenerate(this.lesson);
+    } else this.onGenerate(this.lesson);
+  
+    if ('speechSynthesis' in window) {
+      this.ttsSupported = true;
+      console.log("TTS supported.");
     }
-  }
+  }  
 
   onGenerate(lesson: Lesson): void {
     // this.lessonArray = this.splitByLineBreaks(lesson.content);
@@ -46,24 +52,11 @@ Click Generate Lesson.`
     console.log(this.lessonArray);
   }
 
-  // splitByLineBreaks(str: string): string[] {
-  //   if (!str) {
-  //     return [];
-  //   }
-  //   let regex = /\r?\n|\r/g;
-  //   let result = str.split(regex);
-  //   return result;
-  // }
-
   copyContent(lesson : Lesson): string {
     return this.lesson.content;
   }
 
-  // copyLine(line: string): string {
-  //   this.translatedLine = line;
-  //   return this.translatedLine;
-  // }
-  
+ 
   addLineBreaks(text: string): string {
     return text.replace(/([.?!])\s*(?=[A-Z])/g, '$1\n');
   }

@@ -3,16 +3,16 @@ body, input[type="text"], button {
   }
 
  * {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Lora, Georgia, Times,'Times New Roman', serif;
   }
 h1 {
     color: #369;
-    font-family: Times, 'Times New Roman', serif;
+    font-family: Lora, Georgia, Times,'Times New Roman', serif;
     font-size: 250%;
   }
   h2, h3 {
     color: #444;
-    font-family: Times, 'Times New Roman', serif;
+    font-family: Lora, Georgia, Times,'Times New Roman', serif;
     font-weight: lighter;
   }
   body {
@@ -75,8 +75,8 @@ button {
   
 details {
     border-radius: 4px;
-    padding: .25em;
-    background-color: #eee;
+    padding: 1rem;
+    background-color: antiquewhite;
     margin-bottom: 5px;
 
   }
@@ -90,4 +90,6 @@ details {
     margin-top: .5rem;
   }
   
-
+  .green {
+    background-color: #20af0e75;
+  }

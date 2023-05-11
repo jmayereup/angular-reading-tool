@@ -1,12 +1,16 @@
 
 <form>
+  <div *ngIf="!ttsSupported" translate="yes" class="warning">
+    <strong>SPEECH NOT SUPPORTED:
+      You need to open this page in a browser like Firefox, Chrome, Safari or Edge.
+      It will not work if you open it from most messaging apps.</strong></div>
     <span *ngIf="!isBlogPost" translate="yes">
         <div>You can use this tool to help with reading your own texts.<br><br>
             Try going to <a href="https://ai.com" target="_blank">ai.com</a> and ask it for a dialogue or story about anything. 
             <br>Then paste the results in the box below.
             <br><br><strong>Example Prompt:</strong> Please create a short and easy dialogue between two people discussing a new park.
            </div>
-        <div class="grid">
+        <div id="top" class="grid">
             <h2>SOURCE TEXT:</h2>
             <button class="header-btn" type="button" (click)="clearText()">Clear</button>
             <button class="header-btn" type="button" (click)="pasteText()">Paste</button>
@@ -14,11 +18,11 @@
         <textarea name="lesson" placeholder="Blank" [(ngModel)]="lesson.content">{{lesson.content}}</textarea>
     </span>
 
-    <div class="grid2" translate="yes">
-        <div><label>Choose the translation langauge: </label>
+    <div [ngClass]="isBlogPost ? 'grid1' : 'grid2'" translate="yes">
+        <div *ngIf="!isBlogPost" ><label>Choose the translation langauge: </label>
             <span id="google_translate_element"></span>
         </div>
-        <div><label>You can choose a voice for the source text: </label>
+        <div><label translate="yes">You can choose a voice for the source text: </label>
             <select #language name="selectedLanguage" [(ngModel)]="selectedLanguage">
                 <option value="zh-CN">Chinese (Simplified)</option>
                 <option value="nl-NL">Dutch (Netherlands)</option>

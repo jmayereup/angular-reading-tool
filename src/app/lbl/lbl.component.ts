@@ -17,7 +17,8 @@ export class LblComponent {
   fulltext: string = "";
 
   ngOnChanges() {
-    this.lessonArray = this.splitByLineBreaks(this.originalText);
+    let lblText : string = this.addLineBreaks(this.originalText);
+    this.lessonArray = this.splitByLineBreaks(lblText) ;
     this.fulltext = this.removeLineBreaks(this.originalText);
   }
   
@@ -33,6 +34,10 @@ export class LblComponent {
     let regex = /\r?\n|\r/g;
     let result = str.split(regex);
     return result;
+  }
+
+  addLineBreaks(text: string): string {
+    return text.replace(/([.?!])\s*(?=[A-Z])/g, '$1\n');
   }
 
   removeLineBreaks(str: string): string {
