@@ -1,27 +1,35 @@
-<details><summary>Original</summary>
-    <button type="button" class="headphones" 
+<details>
+    <summary>Original</summary>
+    <button type="button" class="headphones"
         (click)="speakService.readUtterance(fullText.textContent || '', rate, selectedLanguage)">
         <i class="fa fa-headphones"></i></button>
     <span class="detailsText" #fullText translate="no">{{originalText}}</span>
 </details>
-<details><summary>Translation</summary>
-    <button type="button" class="headphones" 
+<details>
+    <summary>Translation</summary>
+    <button type="button" class="headphones"
         (click)="speakService.readUtterance(translatedText.textContent || '', rate)">
         <i class="fa fa-headphones"></i></button>
     <span class="detailsText" #translatedText translate="yes">{{originalText}}</span>
 </details>
 
-<details open><summary>Line-By-Line</summary>
-<div class="lesson" *ngFor="let line of lessonArray">
-    
-    <span class="original"><span>{{line}}</span>
-        <button *ngIf="line.length>1" type="button" class="headphones" (click)="speakService.readUtterance(line, rate, selectedLanguage)"><i
-                class="fa fa-headphones"></i></button><br>
+<details open>
+    <summary>Line-By-Line: <input type="checkbox" [(ngModel)]="showTranslation">
+        <label class="regular" for="showTranslation">Show Translations</label></summary>
+    <!-- <button class="grey" (click)="showTranslation = !showTranslation"> {{showTranslation? 'Hide Translations': 'Show Translations'}} </button> -->
+    <div class="lesson" *ngFor="let line of lessonArray">
+
+        <span class="original"><span>{{line}}</span>
+            <button *ngIf="line.length>1" type="button" class="headphones"
+                (click)="speakService.readUtterance(line, rate, selectedLanguage)"><i
+                    class="fa fa-headphones"></i></button><br>
         </span>
-    <span class="translated" #translatedSpan translate="yes">{{copyLine(line)}}</span>
-    <button *ngIf="line.length>1" type="button" class="headphones" (click)="speakService.readUtterance(translatedSpan.textContent || '', rate)"><i
-            class="fa fa-headphones"></i></button>
-</div>
+        <span *ngIf="showTranslation == true"><span class="translated" #translatedSpan
+                translate="yes">{{copyLine(line)}}</span>
+            <button *ngIf="line.length>1" type="button" class="headphones"
+                (click)="speakService.readUtterance(translatedSpan.textContent || '', rate)"><i
+                    class="fa fa-headphones"></i></button></span>
+    </div>
 </details>
 <a href="#top"><button class="green">Back to Top</button></a>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

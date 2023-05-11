@@ -36,6 +36,12 @@ details {
 label {
     font-weight: 600;
 }
+
+.regular {
+  font-weight: unset;
+  font-style: inherit;
+  font-size: inherit;
+}
 button {
     padding: .5rem;
     margin-left: 0px;
@@ -56,7 +62,7 @@ button {
 
 }
   button:hover {
-    background-color: #20af0e75;
+    background-color: darkgrey;
     color: white;
   }
 
@@ -92,4 +98,8 @@ details {
   
   .green {
     background-color: #20af0e75;
+  }
+
+  .grey {
+    background-color: lightgrey;
   }

@@ -15,6 +15,7 @@ export class LblComponent {
   lessonArray: string[]= [];
   translatedLine: string = "";
   fulltext: string = "";
+  showTranslation: boolean = true;
 
   ngOnChanges() {
     let lblText : string = this.addLineBreaks(this.originalText);
