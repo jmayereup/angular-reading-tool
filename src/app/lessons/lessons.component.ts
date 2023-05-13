@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Lesson } from '../lesson';
-import { LblComponent } from '../lbl/lbl.component';
+import { addLineBreaks } from '../utils';
+// import { LblComponent } from '../lbl/lbl.component';
 
 @Component({
   selector: 'app-lessons',
@@ -20,6 +21,7 @@ Click Generate Lesson.`
   
   }
 
+  @Input() sourceTextLesson : string = "";
   originalLesson : string = "";
   translatedLesson? : string;
   translatedLine? : string = "Not Translated Yet";
@@ -28,13 +30,11 @@ Click Generate Lesson.`
   selectedLanguage = 'en-CA';
   isBlogPost : boolean = false;
   ttsSupported : boolean = false;
-  // utterance? : SpeechSynthesisUtterance;
 
   
   ngOnInit() {
-    const sourceTextElement = document.getElementById('source-text');
-    if (sourceTextElement?.textContent) {
-      this.lesson.content = sourceTextElement.textContent;
+    if (this.sourceTextLesson) {
+      this.lesson.content = this.sourceTextLesson;
       this.isBlogPost = true;
       this.onGenerate(this.lesson);
     } else this.onGenerate(this.lesson);
@@ -46,10 +46,8 @@ Click Generate Lesson.`
   }  
 
   onGenerate(lesson: Lesson): void {
-    // this.lessonArray = this.splitByLineBreaks(lesson.content);
     this.originalLesson = this.copyContent(lesson);
     this.translatedLesson = this.copyContent(lesson);
-    console.log(this.lessonArray);
   }
 
   copyContent(lesson : Lesson): string {
@@ -57,17 +55,18 @@ Click Generate Lesson.`
   }
 
  
-  addLineBreaks(text: string): string {
-    return text.replace(/([.?!])\s*(?=[A-Z])/g, '$1\n');
-  }
+  // addLineBreaks(text: string): string {
+  //   return text.replace(/([.?!])\s*(?=[A-Z])/g, '$1\n');
+  // }
 
   pasteText(): void {
     this.lesson.content = "";
     navigator.clipboard.readText().then(
       text => {
         // assign the text to a variable or use it to update the textarea
-        let newText = this.addLineBreaks(text);
+        let newText = addLineBreaks(text);
         this.lesson.content = newText;
+        this.onGenerate(this.lesson);
       }   
     ).catch(error => {
       console.error('Cannot read clipboard text: ', error);

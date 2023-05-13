@@ -1,0 +1,11 @@
+<div *ngIf="hasVocab">
+    <details><summary>Vocabulary</summary>
+    <div *ngFor="let line of vocabArray">
+        <span *ngIf="line.trim().length>0">{{extractWord(line)[0]}}<button type="button" class="headphones"
+                (click)="speakService.readUtterance(extractWord(line)[0], rate, selectedLanguage)"><i
+                    class="fa fa-headphones"></i></button> - {{extractWord(line)[1]}} <span
+                translate=yes>({{extractWord(line)[0]}})</span>
+        </span>
+    </div>
+</details>
+</div>
