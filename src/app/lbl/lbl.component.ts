@@ -29,20 +29,4 @@ export class LblComponent {
     return this.translatedLine;
   }
 
-//   splitByLineBreaks(str: string): string[] {
-//     if (!str) {
-//       return [];
-//     }
-//     let regex = /\r?\n|\r/g;
-//     let result = str.split(regex);
-//     return result;
-//   }
-
-//   addLineBreaks(text: string): string {
-//     return text.replace(/([.?!])\s*(?=[A-Z])/g, '$1\n');
-//   }
-
-//   removeLineBreaks(str: string): string {
-//     return str.replace(/(\r\n|\n|\r)/gm, '');
-//   }
 }

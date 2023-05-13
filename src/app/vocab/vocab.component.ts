@@ -29,6 +29,7 @@ export class VocabComponent implements OnInit {
     if (sourceElement && sourceElement.textContent) {
      
     this.list = sourceElement.textContent;
+    sourceElement.remove();
     }
     else this.hasVocab = false;
     this.vocabArray = splitByLineBreaks(this.list);
