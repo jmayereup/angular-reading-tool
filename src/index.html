@@ -21,10 +21,25 @@
 </head>
 
 <body translate="no">
-  <div id="source-text">This is a blog post. The menus should not be displayed.
-    <br>
-    Test</div>
-  <app-root></app-root>
+  <div class="grey">
+    <div id="source-text1">This is a blog post. The menus should not be displayed.
+      <br>
+      Test
+    </div>
+    <div id="source-text2">This is the content from the second div. Ok.</div>
+
+    <div class="vocab-list1">
+      dog - a furry animal
+      cat - a furry animal with claws
+
+    </div>
+  </div>
+  <!-- <app-root></app-root> -->
+
+  <reading-tool source-text="source-text1" vocab-list="vocab-list1"></reading-tool>
+
+  <!-- No attribute needed to deactivate input fields, if only one div with id=source-text is present -->
+  <reading-tool></reading-tool>
 
 </body>
 
