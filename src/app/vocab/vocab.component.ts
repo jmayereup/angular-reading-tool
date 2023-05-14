@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SpeakService } from '../speak.service';
 import { GetSourcesService } from '../get-sources.service';
-import { splitByLineBreaks } from '../utils';
+import { splitByLineBreaks, extractWord } from '../utils';
 
 @Component({
   selector: 'app-vocab',
@@ -11,6 +11,7 @@ import { splitByLineBreaks } from '../utils';
 export class VocabComponent implements OnInit {
 
   constructor(public speakService: SpeakService, private getSourcesService: GetSourcesService ) { };
+
  
 
   list: string = "";
@@ -19,7 +20,7 @@ export class VocabComponent implements OnInit {
   sourceText: string = "";
   hasVocab: boolean = true;
 
-  vocabArray: Array<string> = [];
+  vocabArray: string[][] = [];
 
   ngOnInit() {
     this.sourceText = this.getSourcesService.vocabListId;
@@ -32,13 +33,11 @@ export class VocabComponent implements OnInit {
     sourceElement.remove();
     }
     else this.hasVocab = false;
-    this.vocabArray = splitByLineBreaks(this.list);
+    this.vocabArray = splitByLineBreaks(this.list).map(line => line.split(/:|-/));
     console.log(this.vocabArray);
+
   }
-  extractWord(line: string) {
-    let lineArray: Array<string> = line.split(/:|-/);
-    return lineArray;
-  }
+
 
 
 }

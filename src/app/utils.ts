@@ -16,4 +16,7 @@ export function removeLineBreaks(str: string): string {
     return str.replace(/(\r\n|\n|\r)/gm, '');
 }
 
-
+export function extractWord(line: string) {
+    let lineArray: Array<string> = line.split(/:|-/);
+    return lineArray;
+}

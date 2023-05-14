@@ -1,0 +1,175 @@
+* {
+    font-family: Lora, Georgia, Times, 'Times New Roman', serif;
+  }
+  
+  body {
+    margin: 2em;
+  }
+  
+  body,
+  input[type="text"],
+  button {
+    color: #333;
+  }
+  
+  h1 {
+    color: #369;
+    font-family: Lora, Georgia, Times, 'Times New Roman', serif;
+    font-size: 250%;
+  }
+  
+  h2,
+  h3 {
+    color: #444;
+    font-family: Lora, Georgia, Times, 'Times New Roman', serif;
+    font-weight: lighter;
+  }
+  
+  button {
+    background-color: #eee;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: black;
+    font-size: 1.2rem;
+    padding: .5rem;
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
+  }
+  
+  button:hover {
+    background-color: green;
+    color: black;
+  }
+  
+  button:disabled {
+    background-color: #eee;
+    color: #aaa;
+    cursor: auto;
+  }
+  
+  button.headphones {
+    display: inline;
+    padding: .2rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 5px;
+    margin-right: 0;
+    background-color: transparent;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  } 
+  
+  textarea {
+    width: 99.5%;
+    min-height: 300px;
+    font-size: large;
+  }
+  
+  
+  label {
+    font-weight: 600;
+  }
+  
+  .header-btn {
+    align-self: flex-end;
+    margin-bottom: 5px;
+    margin-right: 0px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 60% 20% 20%;
+    grid-gap: 2px;
+    justify-self: center;
+    margin: 0%;
+  }
+  
+  .grid h2 {
+    margin: 0px 0px 5px 0px;
+    align-self: self-end;
+    font-family: Helvetica, sans-serif;
+    font-size: 1.2em;
+  }
+  
+  .grid1 {
+    display: inline;
+    text-align: center;
+  }
+  
+  .grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: column;
+    grid-gap: 2px;
+    justify-self: center;
+    margin: 0%;
+  }
+  
+  .radio-group {
+    display: inline;
+    padding: 5px;
+    margin-bottom: 15px;
+    font-size: 1em;
+    text-align: center;
+    border-radius: 4px;
+  
+  }
+  
+  .radio-group span {
+    display: inline-block;
+  }
+  
+  .warning {
+    border-style: solid;
+    border-width: thin;
+    padding: .4rem;
+    background-color: lightgoldenrodyellow;
+  }
+  
+  .original {
+    font-weight: 600;
+    margin-bottom: -15px;
+  }
+  
+  
+  .lesson {
+    font-size: 1.2rem;
+  }
+  
+  .regular {
+    font-weight: unset;
+    font-style: inherit;
+    font-size: inherit;
+  }
+  
+  
+  details {
+    border-radius: 4px;
+    padding: .5rem;
+    background-color: antiquewhite;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+  
+  }
+  
+  details summary {
+    cursor: pointer;
+    padding-bottom: .5rem;
+  }
+  
+  .detailsText {
+    margin-top: .5rem;
+  }
+  
+  .green {
+    background-color: #20af0e75;
+  }
+  
+  .grey {
+    background-color: lightgrey;
+  }

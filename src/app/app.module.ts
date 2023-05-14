@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { LblComponent } from './lbl/lbl.component';
 import { VocabComponent } from './vocab/vocab.component';
+import { MatchingGameComponent } from './matching-game/matching-game.component';
 
 export function windowProvider() {
   return window;
@@ -19,7 +20,8 @@ export function windowProvider() {
     AppComponent,
     LessonsComponent,
     LblComponent,
-    VocabComponent
+    VocabComponent,
+    MatchingGameComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
