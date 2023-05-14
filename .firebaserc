@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "reading-tool": {
+      "hosting": {
+        "angular-reading-tool": [
+          "reading-tool"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "reading-tool"
+  }
+}
