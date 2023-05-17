@@ -30,7 +30,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    color: black;
+    background-color: #eee;
     font-size: large;
     padding: .5rem;
     margin-right: .5rem;
@@ -39,7 +39,7 @@
   }
   
   button:hover {
-    background-color: green;
+    background-color: rgb(84, 146, 84);
     color: black;
   }
   
@@ -52,11 +52,14 @@
   button.headphones {
     display: inline;
     padding: .2rem;
-    margin-top: 0;
-    margin-bottom: 0;
+    border: solid;
     margin-left: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: x-small;
     margin-right: 0;
-    background-color: transparent;
+    border-width: thin;
+    
   }
   
   form {

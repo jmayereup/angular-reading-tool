@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson';
 import { addLineBreaks } from '../utils';
 import { GetSourcesService } from '../get-sources.service';
-import { Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
+import { Firestore, setDoc, getDoc, doc, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 // import { LblComponent } from '../lbl/lbl.component';
 
@@ -13,12 +13,12 @@ import { Observable } from 'rxjs';
 })
 export class LessonsComponent implements OnInit {
 
-  lessonText$: Observable<Lesson[]>;
+  lesson$: Observable<Lesson[]>;
 
 
-  constructor(private getSourcesService: GetSourcesService, private firestore: Firestore) {
+  constructor(public getSourcesService: GetSourcesService, private firestore: Firestore) {
     const lessonCollection = collection(this.firestore, 'lessons');
-    this.lessonText$ = collectionData(lessonCollection) as Observable<Lesson[]>;
+    this.lesson$ = collectionData(lessonCollection, { idField: 'id'}) as Observable<Lesson[]>;
     this.getSourcesService.sourceText$.subscribe(lesson => {
       this.onGenerate(lesson);
     });
@@ -59,10 +59,16 @@ export class LessonsComponent implements OnInit {
     }
   }
 
-  addLesson(lessonData: Lesson) {
-    const lessonCollection = collection(this.firestore, 'lessons');
-    addDoc(lessonCollection, lessonData);
-  }
+  // async addLesson(lessonData: Lesson, lessonId?: string) {
+  //   console.log(lessonId);
+  //   const lessonCollection = collection(this.firestore, 'lessons');
+  //   let lessonDoc;
+  //   if (lessonId) {
+  //     lessonDoc = doc(lessonCollection, lessonId);
+  //   } else lessonDoc = doc(lessonCollection);
+
+  //   await setDoc(lessonDoc, lessonData);
+  // }
 
 
   onGenerate(data: Lesson): void {
@@ -94,6 +100,27 @@ export class LessonsComponent implements OnInit {
 
   clearText(): void {
     this.lesson.content = "";
+    this.getSourcesService.lessonID = "";
+  }
+
+  async addLesson() {
+    let newText = "";
+    let lessonID = this.getSourcesService.lessonID;
+    let textAreaText = document.getElementById('lessonContent');
+    (textAreaText && textAreaText.textContent) ? newText = textAreaText.textContent : newText="Empty";
+    console.log(newText);
+    console.log("ID", this.getSourcesService.lessonID);
+    const lessonCollection = collection(this.firestore, 'lessons');
+    let lessonDoc;
+    let lessonData: Lesson = {id: '', content: newText};
+    if (this.getSourcesService.lessonID) {
+      lessonDoc = doc(lessonCollection, lessonID);
+      const lessonSnapshot = await getDoc(lessonDoc);
+      lessonData = lessonSnapshot.data() as Lesson;
+      lessonData.content = newText;
+    } else lessonDoc = doc(lessonCollection);
+    // lessonData.content = newText;
+    await setDoc(lessonDoc, lessonData);
   }
 
 

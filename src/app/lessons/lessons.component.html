@@ -12,10 +12,12 @@
            </div>
         <div id="top" class="grid">
             <h2>SOURCE TEXT:</h2>
-            <button class="header-btn" type="button" (click)="clearText()">Clear</button>
-            <button class="header-btn" type="button" (click)="pasteText()">Paste</button>
+            <button class="header-btn" type="button" (click)="addLesson()">SAVE</button>
+            <button class="header-btn" type="button" (click)="clearText()">NEW</button>
+            <button class="header-btn" type="button" (click)="pasteText()">PASTE</button>
         </div>
-        <textarea name="lesson" placeholder="Blank" [(ngModel)]="lesson.content">{{lesson.content}}</textarea>
+        <textarea id="lessonContent" name="lesson" placeholder="Blank" [(ngModel)]="lesson.content">{{lesson.content}}</textarea>
+        <div translate="no">{{lesson.id}}</div>
     </span>
 
     <div [ngClass]="isBlogPost ? 'grid1' : 'grid2'" translate="yes">
@@ -60,6 +62,9 @@
           </label>
         </span>
       </div>
+
 </form>
+<!-- <button class="grey" type="button" (click)="addLesson(lesson, lesson.id)">Save Lesson</button> -->
+<details class="blue"><summary>Saved Lessons</summary><app-lesson-list></app-lesson-list></details>
 <app-lbl [selectedLanguage]="selectedLanguage" [rate]="rate" [originalText]="originalLesson"></app-lbl>
 

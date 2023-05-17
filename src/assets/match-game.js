@@ -17,6 +17,7 @@ class MatchGameMaker extends HTMLElement {
         let tiles = [];
         let shuffledTiles = [];
         let firstTile = null;
+        let displayContainer = false;
 
         // shuffledPairs = shuffleArray(wordbank);
 
@@ -37,9 +38,9 @@ class MatchGameMaker extends HTMLElement {
         }
 
         function getWordBank(rawtext) {
-            const splitText = rawtext.split('.')
+            const splitText = rawtext.split('\n')
                 .map(str => {
-                    let [term, translation] = str.split(' - ');
+                    let [term, translation] = str.split(/ :| - /);
                     if (!translation) { translation = term;}
                     return { term, translation }
                 }).filter(pair => pair.term !== "");
@@ -143,10 +144,13 @@ class MatchGameMaker extends HTMLElement {
             shuffledPairs = null;
             shuffledTiles = null;
             shadowDiv.innerHTML = "";
+            
 
             text = getVocabList();
             wordbank = getWordBank(text);
             shuffledPairs = shuffleArray(wordbank);
+            displayContainer = true;
+            shadowDiv.style.display = displayContainer ? 'grid' : 'none';
             tiles = createTiles(shuffledPairs);
             shuffledTiles = shuffleTiles(tiles);
             shuffledTiles.forEach(div => {
@@ -240,7 +244,7 @@ class MatchGameMaker extends HTMLElement {
             touch-action: manipulation;
             vertical-align: middle;
             white-space: nowrap;
-S          }
+          }
           
           .button:focus:not(:focus-visible):not(.focus-visible) {
             box-shadow: none;
@@ -277,18 +281,25 @@ S          }
           }
         
         </style>
-        <h3>Match the Tiles</h3>
         <div id="game" class="matchgamecontainer"></div>
 
-        <div class="nav-buttons"><button id="btn-play-again" class="button" type="button">Play Again</button>
+        <div class="nav-buttons"><button id="btn-play-again" class="button" type="button">Load Tiles</button>
          `;
 
-        const button = shadow.querySelector("#btn-play-again").addEventListener('click', playAgain);
+        const button = shadow.querySelector("#btn-play-again");
+        button.addEventListener('click', buttonClick);
+        function buttonClick(event) {
+        button.textContent = "Play Again";
+            playAgain(event);
+
+        };
 
         const shadowDiv = shadow.querySelector("#game");
         // console.log("shadowDiv", shadowDiv);
+        shadowDiv.style.display = displayContainer ? 'grid' : 'none';
         shuffledTiles.forEach(div => {
             shadowDiv.appendChild(div);
+
         });
 
     }

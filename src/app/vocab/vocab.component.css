@@ -52,11 +52,14 @@
   button.headphones {
     display: inline;
     padding: .2rem;
-    margin-top: 0;
-    margin-bottom: 0;
+    border: solid;
     margin-left: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: x-small;
     margin-right: 0;
-    background-color: transparent;
+    border-width: thin;
+    
   }
   
   form {
@@ -172,4 +175,8 @@
   
   .grey {
     background-color: lightgrey;
+  }
+
+  .matchContainer {
+    padding: 1rem;
   }

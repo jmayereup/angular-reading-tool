@@ -26,12 +26,11 @@
   }
   
   button {
-    background-color: #eee;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    color: black;
-    font-size: 1.2rem;
+    background-color: #99da90;
+    font-size: small;
     padding: .5rem;
     margin-right: .5rem;
     margin-bottom: .5rem;
@@ -39,7 +38,7 @@
   }
   
   button:hover {
-    background-color: green;
+    background-color: rgb(84, 146, 84);
     color: black;
   }
   
@@ -49,14 +48,7 @@
     cursor: auto;
   }
   
-  button.headphones {
-    display: inline;
-    padding: .2rem;
-    margin-top: 0;
-    margin-bottom: 0;
-    background-color: transparent;
-  }
-  
+ 
   form {
     display: flex;
     flex-direction: column;
@@ -77,22 +69,11 @@
     align-self: flex-end;
     margin-bottom: 5px;
     margin-right: 0px;
-    font-size: medium;
-  }
-
-  @media (max-width: 600px) {
-    .header-btn {
-      font-size: x-small;
-    }
-
-    h2 {
-      font-size: smaller;
-    }
   }
   
   .grid {
     display: grid;
-    grid-template-columns: 40% 20% 20% 20%;
+    grid-template-columns: 60% 20% 20%;
     grid-gap: 2px;
     justify-self: center;
     margin: 0%;
@@ -102,7 +83,7 @@
     margin: 0px 0px 5px 0px;
     align-self: self-end;
     font-family: Helvetica, sans-serif;
-    font-size: 1.2em;
+    font-size: large;
   }
   
   .grid1 {
@@ -123,7 +104,7 @@
     display: inline;
     padding: 5px;
     margin-bottom: 15px;
-    font-size: 1em;
+    font-size: large;
     text-align: center;
     border-radius: 4px;
   
@@ -147,7 +128,7 @@
   
   
   .lesson {
-    font-size: 1.2rem;
+    font-size: large;
   }
   
   .regular {
@@ -162,7 +143,7 @@
     padding: .5rem;
     background-color: antiquewhite;
     margin-bottom: 5px;
-    font-size: 1.2rem;
+    font-size: large;
   
   }
   
@@ -183,7 +164,10 @@
     background-color: lightgrey;
   }
 
-  .blue {
-    background-color: #ccddff;
+  .red {
+    background-color: rgb(190, 124, 124);
   }
 
+  .blue {
+    color: #ccddff;
+  }
