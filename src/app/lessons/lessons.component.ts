@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson';
 import { addLineBreaks } from '../utils';
 import { GetSourcesService } from '../get-sources.service';
+import { Firestore, setDoc, getDoc, doc, collection, collectionData } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 // import { LblComponent } from '../lbl/lbl.component';
 
 @Component({
@@ -11,15 +13,24 @@ import { GetSourcesService } from '../get-sources.service';
 })
 export class LessonsComponent implements OnInit {
 
-  constructor(private getSourcesService: GetSourcesService) { }
+  lesson$: Observable<Lesson[]>;
+
+
+  constructor(public getSourcesService: GetSourcesService, private firestore: Firestore) {
+    const lessonCollection = collection(this.firestore, 'lessons');
+    this.lesson$ = collectionData(lessonCollection, { idField: 'id'}) as Observable<Lesson[]>;
+    this.getSourcesService.sourceText$.subscribe(lesson => {
+      this.onGenerate(lesson);
+    });
+
+  }
+
+
 
   lesson: Lesson = {
-    id: 1,
+    id: "1",
     content:
-      `This is a sample lesson. 
-Each sentence should be divided by lines. 
-Then choose the translation language.
-Click Generate Lesson.`
+      `test`
 
   }
 
@@ -48,19 +59,29 @@ Click Generate Lesson.`
     }
   }
 
-  onGenerate(lesson: Lesson): void {
-    this.originalLesson = this.copyContent(lesson);
-    this.translatedLesson = this.copyContent(lesson);
+  // async addLesson(lessonData: Lesson, lessonId?: string) {
+  //   console.log(lessonId);
+  //   const lessonCollection = collection(this.firestore, 'lessons');
+  //   let lessonDoc;
+  //   if (lessonId) {
+  //     lessonDoc = doc(lessonCollection, lessonId);
+  //   } else lessonDoc = doc(lessonCollection);
+
+  //   await setDoc(lessonDoc, lessonData);
+  // }
+
+
+  onGenerate(data: Lesson): void {
+    this.lesson = data;
+    this.originalLesson = this.copyContent(this.lesson);
+    this.translatedLesson = this.copyContent(this.lesson);
+    console.log("onGenerate ran", this.lesson);
   }
 
   copyContent(lesson: Lesson): string {
     return this.lesson.content;
   }
 
-
-  // addLineBreaks(text: string): string {
-  //   return text.replace(/([.?!])\s*(?=[A-Z])/g, '$1\n');
-  // }
 
   pasteText(): void {
     this.lesson.content = "";
@@ -79,23 +100,28 @@ Click Generate Lesson.`
 
   clearText(): void {
     this.lesson.content = "";
+    this.getSourcesService.lessonID = "";
   }
 
-  // readUtterance(line: string, lang?: string): void {
-  //   console.log("readtext called", line);
-  //   let currentLang = document.documentElement.lang;
-
-  //   let utterance = new SpeechSynthesisUtterance(line);
-  //   utterance.lang = "en-US";
-  //   if (!lang) {
-  //     utterance.lang = currentLang;
-  //   } else utterance.lang = lang;
-  //   utterance.rate = this.rate;
-  //   window.speechSynthesis.speak(utterance);
-
-  // }
-
-
+  async addLesson() {
+    let newText = "";
+    let lessonID = this.getSourcesService.lessonID;
+    let textAreaText = document.getElementById('lessonContent');
+    (textAreaText && textAreaText.textContent) ? newText = textAreaText.textContent : newText="Empty";
+    console.log(newText);
+    console.log("ID", this.getSourcesService.lessonID);
+    const lessonCollection = collection(this.firestore, 'lessons');
+    let lessonDoc;
+    let lessonData: Lesson = {id: '', content: newText};
+    if (this.getSourcesService.lessonID) {
+      lessonDoc = doc(lessonCollection, lessonID);
+      const lessonSnapshot = await getDoc(lessonDoc);
+      lessonData = lessonSnapshot.data() as Lesson;
+      lessonData.content = newText;
+    } else lessonDoc = doc(lessonCollection);
+    // lessonData.content = newText;
+    await setDoc(lessonDoc, lessonData);
+  }
 
 
 }

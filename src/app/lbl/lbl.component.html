@@ -2,14 +2,14 @@
     <summary>Original</summary>
     <button type="button" class="headphones"
         (click)="speakService.readUtterance(fullText.textContent || '', rate, selectedLanguage)">
-        <i class="fa fa-headphones"></i></button>
+        <i class="fa fa-headphones"></i>SPEAK</button>
     <span class="detailsText" #fullText translate="no">{{originalText}}</span>
 </details>
 <details>
     <summary>Translation</summary>
     <button type="button" class="headphones"
         (click)="speakService.readUtterance(translatedText.textContent || '', rate)">
-        <i class="fa fa-headphones"></i></button>
+        <i class="fa fa-headphones"></i>SPEAK</button>
     <span class="detailsText" #translatedText translate="yes">{{originalText}}</span>
 </details>
 <app-vocab [selectedLanguage]="selectedLanguage" [rate]="rate"></app-vocab>
@@ -21,13 +21,13 @@
         <span class="original"><span>{{line}}</span>
             <button *ngIf="line.length>1" type="button" class="headphones"
                 (click)="speakService.readUtterance(line, rate, selectedLanguage)"><i
-                    class="fa fa-headphones"></i></button><br>
+                    class="fa fa-headphones"></i>SPEAK</button><br>
         </span>
         <span *ngIf="showTranslation == true"><span class="translated" #translatedSpan
                 translate="yes">{{copyLine(line)}}</span>
             <button *ngIf="line.length>1" type="button" class="headphones"
                 (click)="speakService.readUtterance(translatedSpan.textContent || '', rate)"><i
-                    class="fa fa-headphones"></i></button></span>
+                    class="fa fa-headphones"></i>SPEAK</button></span>
     </div>
 </details>
 

@@ -7,7 +7,7 @@ import { splitByLineBreaks, addLineBreaks, removeLineBreaks} from '../utils';
   templateUrl: './lbl.component.html',
   styleUrls: ['./lbl.component.css']
 })
-export class LblComponent {
+export class LblComponent implements OnChanges {
   constructor(public speakService: SpeakService) {};
 
   @Input() rate: number = 1;

@@ -1,20 +1,17 @@
 <div *ngIf="hasVocab">
     <details><summary>Vocabulary</summary>
     <div *ngFor="let line of vocabArray">
-        <span *ngIf="line[0].trim().length>0">{{line[0]}}<button type="button" class="headphones"
-                (click)="speakService.readUtterance(line[0], rate, selectedLanguage)"><i
-                    class="fa fa-headphones"></i></button> - {{line[1]}} <span #translatedVocab
-                translate=yes>({{line[0]}}<button type="button" class="headphones"
-                (click)="speakService.readUtterance(translatedVocab.textContent || '', rate)"><i
-                    class="fa fa-headphones"></i></button>)</span>
+        <span *ngIf="line[0].trim().length>0"><strong>{{line[0]}}</strong><button type="button" class="headphones"
+                (click)="speakService.readUtterance(line[0], rate, selectedLanguage)">
+                SPEAK</button> - {{line[1]}} 
+                <span #translatedVocab translate=yes>({{line[0].trimStart()}}</span><button type="button" class="headphones"
+                (click)="speakService.readUtterance(translatedVocab.innerText || '', rate)">SPEAK</button>)
         </span>
     </div>
 </details>
-<!-- <details *ngIf="vocabArray.length>6" translate="no"><summary>Matching Game</summary>
-    <match-game-maker>
-    <div *ngFor="let tile of vocabArray">
-        <span *ngIf="tile[0].trim().length>0">{{tile[0]}} - {{tile[1]}}.</span>
-    </div>
-    </match-game-maker>
-</details> -->
+<details *ngIf="vocabArray.length>6" translate="no"><summary>Matching Game</summary>
+    <div class="matchContainer">
+    <app-matching-game [matchList]='vocabArray'></app-matching-game>
+</div>
+</details>
 </div>
