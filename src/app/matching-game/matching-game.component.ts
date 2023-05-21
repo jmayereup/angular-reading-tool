@@ -1,19 +1,18 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { limitToLast } from '@firebase/firestore';
+import { Component, Input, OnInit } from '@angular/core';
+// import { limitToLast } from '@firebase/firestore';
 
 @Component({
   selector: 'app-matching-game',
   templateUrl: './matching-game.component.html',
   styleUrls: ['./matching-game.component.css']
 })
-export class MatchingGameComponent implements OnChanges {
+export class MatchingGameComponent implements OnInit {
 
 @Input() matchList: string[][] = [];
 matchListString: string = "";
 
-ngOnChanges(): void {
+ngOnInit(): void {
   
-  this.arrayToString(this.matchList);
   this.matchListString = this.arrayToString(this.matchList);
   // console.log("matching game", this.matchListString); 
 }

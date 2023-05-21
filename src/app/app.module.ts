@@ -11,14 +11,14 @@ import { LessonsComponent } from './lessons/lessons.component';
 import { LblComponent } from './lbl/lbl.component';
 import { VocabComponent } from './vocab/vocab.component';
 import { MatchingGameComponent } from './matching-game/matching-game.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
+// import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+//import { environment } from '../environments/environment';
 // import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
-import { ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
+// import { ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
 // import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+// import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { LessonListComponent } from './lesson-list/lesson-list.component';
-
+// import { MatchGameMaker } from './assets/match-game.js';
 
 export function windowProvider() {
   return window;
@@ -37,14 +37,14 @@ export function windowProvider() {
   imports: [
     BrowserModule,
     FormsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideAnalytics(() => getAnalytics()),
     // provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    // provideFirestore(() => getFirestore())
   ],
   providers: [
     { provide: 'window', useFactory: windowProvider },
-    ScreenTrackingService,UserTrackingService
+    // ScreenTrackingService,UserTrackingService
   ],
   bootstrap: [AppComponent]
 })

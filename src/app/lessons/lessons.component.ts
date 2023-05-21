@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson';
 import { addLineBreaks } from '../utils';
 import { GetSourcesService } from '../get-sources.service';
-import { Firestore, setDoc, getDoc, doc, collection, collectionData } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+// import { Firestore, setDoc, getDoc, doc, collection, collectionData } from '@angular/fire/firestore';
+// import { Observable } from 'rxjs';
+import { LocalStorageService } from '../local-storage.service';
 // import { LblComponent } from '../lbl/lbl.component';
 
 @Component({
@@ -13,15 +14,27 @@ import { Observable } from 'rxjs';
 })
 export class LessonsComponent implements OnInit {
 
-  lesson$: Observable<Lesson[]>;
+  lessons: Lesson[] = [{
+    id: "0",
+    content:
+      `Default Content 1`
+
+  },
+  {
+    id: "1",
+    content:
+      `Default Content 2`
+
+  }];
 
 
-  constructor(public getSourcesService: GetSourcesService, private firestore: Firestore) {
-    const lessonCollection = collection(this.firestore, 'lessons');
-    this.lesson$ = collectionData(lessonCollection, { idField: 'id'}) as Observable<Lesson[]>;
-    this.getSourcesService.sourceText$.subscribe(lesson => {
-      this.onGenerate(lesson);
-    });
+  constructor(public getSourcesService: GetSourcesService, private localStorageService: LocalStorageService) {
+    // const lessonCollection = collection(this.firestore, 'lessons');
+    // this.lesson$ = collectionData(lessonCollection, { idField: 'id'}) as Observable<Lesson[]>;
+    // this.getSourcesService.sourceText$.subscribe(lesson => {
+    //   this.onGenerate(lesson);
+    // });
+
 
   }
 
@@ -57,18 +70,35 @@ export class LessonsComponent implements OnInit {
       this.ttsSupported = true;
       console.log("TTS supported.");
     }
+
+    console.log('lessons array initial', this.lessons);
+    const lessonsString = this.localStorageService.getItem('lessons');
+    if (lessonsString) {
+      const lessonData: Lesson[] = JSON.parse(lessonsString);
+      this.lessons = lessonData;
+      console.log('lessons array:', this.lessons);
+    } else console.log('No lessons in Local Storage');
   }
 
-  // async addLesson(lessonData: Lesson, lessonId?: string) {
-  //   console.log(lessonId);
-  //   const lessonCollection = collection(this.firestore, 'lessons');
-  //   let lessonDoc;
-  //   if (lessonId) {
-  //     lessonDoc = doc(lessonCollection, lessonId);
-  //   } else lessonDoc = doc(lessonCollection);
+  addLesson(): void {
+    let newLesson: Lesson = {id: '1', content: 'To be Added'};
+    newLesson.id = this.lessons.length.toString();
+    newLesson.content = this.lesson.content;
+    console.log('lessonData pass to addLesson', newLesson);
+    this.lessons.push(newLesson);
+    console.log(this.lessons);
+    this.localStorageService.setItem('lessons', JSON.stringify(this.lessons));
+    console.log('lessons from addLessson', this.lessons);
 
-  //   await setDoc(lessonDoc, lessonData);
-  // }
+  }
+
+  removeLessons(key: string) {
+    if (confirm('Are you sure you want to remove all items from localStorage?')) {
+      this.localStorageService.removeItem(key);
+    }
+    this.lesson.content = "All Clear";
+    this.lessons = [];
+  }
 
 
   onGenerate(data: Lesson): void {
@@ -103,25 +133,25 @@ export class LessonsComponent implements OnInit {
     this.getSourcesService.lessonID = "";
   }
 
-  async addLesson() {
-    let newText = "";
-    let lessonID = this.getSourcesService.lessonID;
-    let textAreaText = document.getElementById('lessonContent');
-    (textAreaText && textAreaText.textContent) ? newText = textAreaText.textContent : newText="Empty";
-    console.log(newText);
-    console.log("ID", this.getSourcesService.lessonID);
-    const lessonCollection = collection(this.firestore, 'lessons');
-    let lessonDoc;
-    let lessonData: Lesson = {id: '', content: newText};
-    if (this.getSourcesService.lessonID) {
-      lessonDoc = doc(lessonCollection, lessonID);
-      const lessonSnapshot = await getDoc(lessonDoc);
-      lessonData = lessonSnapshot.data() as Lesson;
-      lessonData.content = newText;
-    } else lessonDoc = doc(lessonCollection);
-    // lessonData.content = newText;
-    await setDoc(lessonDoc, lessonData);
-  }
+  // async addLesson() {
+  // let newText = "";
+  // let lessonID = this.getSourcesService.lessonID;
+  // let textAreaText = document.getElementById('lessonContent');
+  // (textAreaText && textAreaText.textContent) ? newText = textAreaText.textContent : newText="Empty";
+  // console.log(newText);
+  // console.log("ID", this.getSourcesService.lessonID);
+  // const lessonCollection = collection(this.firestore, 'lessons');
+  // let lessonDoc;
+  // let lessonData: Lesson = {id: '', content: newText};
+  // if (this.getSourcesService.lessonID) {
+  //   lessonDoc = doc(lessonCollection, lessonID);
+  //   const lessonSnapshot = await getDoc(lessonDoc);
+  //   lessonData = lessonSnapshot.data() as Lesson;
+  //   lessonData.content = newText;
+  // } else lessonDoc = doc(lessonCollection);
+  // // lessonData.content = newText;
+  // await setDoc(lessonDoc, lessonData);
+  // }
 
 
 }
