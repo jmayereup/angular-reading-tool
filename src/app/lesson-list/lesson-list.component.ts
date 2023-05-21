@@ -1,35 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson';
 // import { Firestore, doc, collection, collectionData, deleteDoc, setDoc, getDoc } from '@angular/fire/firestore';
 import { GetSourcesService } from '../get-sources.service';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-lesson-list',
   templateUrl: './lesson-list.component.html',
   styleUrls: ['./lesson-list.component.css']
 })
-export class LessonListComponent {
+export class LessonListComponent implements OnInit {
 
-  constructor(private getSourceService: GetSourcesService) {
+  constructor(private getSourceService: GetSourcesService, private localStorageService: LocalStorageService) {
     
   }
 
-  lessonData: Lesson[] = [];
+  lessonData: Lesson[] = this.localStorageService.getItem('lessons');
+  
+  ngOnInit(): void {     
+    this.localStorageService.lessons$.subscribe(lessons => {
+      this.lessonData = lessons;
+      //this.localStorageService.setItem('lessons', JSON.stringify(this.lessonData));
+    })
+  }
+  
   removeLesson(lessonId: string) {
+    if (confirm('Are you sure you want to delete this lesson?')) {
+    this.localStorageService.removeItem(lessonId);
+    }
   }
 
-  async loadLesson(lessonId: string) {
-    // this.lessonID = lessonId;
-    this.getSourceService.lessonID = lessonId;
-    console.log("id loaded", lessonId);
-    
-    // if (lessonData) {
-    //   console.log(lessonData);
-    //   this.getSourceService.setLesson(lessonData);
-    // } else {
-    //   alert("No Lesson Found")
-    // }
+  loadLesson(lesson: Lesson) {
+  this.getSourceService.setLesson(lesson);
   }
 
     

@@ -8,16 +8,17 @@
         <div>You can use this tool to help with reading your own texts.<br><br>
             Try going to <a href="https://ai.com" target="_blank">ai.com</a> and ask it for a dialogue or story about anything. 
             <br>Then paste the results in the box below.
-            <br><br><strong>Example Prompt:</strong> Please create a short and easy dialogue between two people discussing a new park.
+            <br><br><strong>Example Prompt:</strong> Please create a short and easy dialogue between two people discussing a new park.<br><br>
            </div>
-        <div id="top" class="grid">
-            <h2>SOURCE TEXT:</h2>
-            <!-- <button class="header-btn" type="button" (click)="addLesson()">SAVE</button> -->
-            <button class="header-btn" type="button" (click)="clearText()">NEW</button>
+        <div id="top" class="button-row">
+            <label>Title:<input class="title-input" type="text" size="35" required name="title" [(ngModel)]="lesson.title"></label>
+            <button class="header-btn" type="button" (click)="addLesson(lesson)">SAVE</button>
+            <button class="header-btn" type="button" (click)="clearText()">CLEAR</button>
             <button class="header-btn" type="button" (click)="pasteText()">PASTE</button>
+            <!-- <button id="reset-button" class=" header-btn red" type="button" (click)="removeLessons('lessons')">Delete All Lessons</button> -->
+
         </div>
-        <textarea id="lessonContent" name="lesson" placeholder="Blank" [(ngModel)]="lesson.content">{{lesson.content}}</textarea>
-        <!-- <div translate="no">{{lesson.id}}</div> -->
+        <textarea id="lessonContent" name="lesson" placeholder="Blank" [(ngModel)]='tempContent'>{{lesson.content}}</textarea>
     </span>
 
     <div class='grid2' translate="yes">
@@ -65,12 +66,10 @@
 
 </form>
 <ul>
-<li *ngFor="let l of lessons">{{l.content}} - {{l.id}}</li>
+<!-- <li *ngFor="let l of lessonData">{{l.content}} - {{l.id}}</li> -->
 </ul>
 <div class="grid">
-<button class="grey" type="button" (click)="addLesson()">Save Lesson</button>
-<button id="reset-button" class="red" type="button" (click)="removeLessons('lessons')">Clear Alls Lessons</button>
 </div>
-<!-- <details class="blue"><summary>Saved Lessons</summary><app-lesson-list></app-lesson-list></details> -->
+<details id="saved" class="blue"><summary>Saved Lessons</summary><app-lesson-list></app-lesson-list></details>
 <app-lbl [selectedLanguage]="selectedLanguage" [rate]="rate" [originalText]="originalLesson"></app-lbl>
 

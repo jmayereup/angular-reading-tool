@@ -12,18 +12,6 @@
     color: #333;
   }
   
-  h1 {
-    color: #369;
-    font-family: Lora, Georgia, Times, 'Times New Roman', serif;
-    font-size: 250%;
-  }
-  
-  h2,
-  h3 {
-    color: #444;
-    font-family: Lora, Georgia, Times, 'Times New Roman', serif;
-    font-weight: lighter;
-  }
   
   button {
     border: none;
@@ -31,10 +19,9 @@
     cursor: pointer;
     background-color: #99da90;
     font-size: small;
-    padding: .5rem;
+    padding: .3rem;
     margin-right: .5rem;
-    margin-bottom: .5rem;
-    margin-top: .5rem;
+    margin-bottom: 2px;
   }
   
   button:hover {
@@ -54,17 +41,17 @@
     flex-direction: column;
   } 
   
-  textarea {
-    width: 99.5%;
-    min-height: 300px;
-    font-size: large;
-  }
-  
   
   label {
     font-weight: 600;
   }
-  
+
+li {
+  font-size: smaller;
+  list-style: none;
+
+}
+
   .header-btn {
     align-self: flex-end;
     margin-bottom: 5px;

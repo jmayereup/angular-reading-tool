@@ -18,6 +18,7 @@ import { MatchingGameComponent } from './matching-game/matching-game.component';
 // import { provideAuth,getAuth } from '@angular/fire/auth';
 // import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { LessonListComponent } from './lesson-list/lesson-list.component';
+import { ShortenPipe } from './shorten.pipe';
 // import { MatchGameMaker } from './assets/match-game.js';
 
 export function windowProvider() {
@@ -31,7 +32,8 @@ export function windowProvider() {
     LblComponent,
     VocabComponent,
     MatchingGameComponent,
-    LessonListComponent
+    LessonListComponent,
+    ShortenPipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [

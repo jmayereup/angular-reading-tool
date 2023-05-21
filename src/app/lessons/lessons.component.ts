@@ -14,7 +14,7 @@ import { LocalStorageService } from '../local-storage.service';
 })
 export class LessonsComponent implements OnInit {
 
-  lessons: Lesson[] = [{
+  lessonData: Lesson[] = [{
     id: "0",
     content:
       `Default Content 1`
@@ -29,13 +29,6 @@ export class LessonsComponent implements OnInit {
 
 
   constructor(public getSourcesService: GetSourcesService, private localStorageService: LocalStorageService) {
-    // const lessonCollection = collection(this.firestore, 'lessons');
-    // this.lesson$ = collectionData(lessonCollection, { idField: 'id'}) as Observable<Lesson[]>;
-    // this.getSourcesService.sourceText$.subscribe(lesson => {
-    //   this.onGenerate(lesson);
-    // });
-
-
   }
 
 
@@ -49,6 +42,7 @@ export class LessonsComponent implements OnInit {
 
   sourceTextLesson: string = "";
   originalLesson: string = "";
+  tempContent: string = "";
   translatedLesson?: string;
   translatedLine?: string = "Not Translated Yet";
   lessonArray: string[] = [];
@@ -59,6 +53,17 @@ export class LessonsComponent implements OnInit {
 
 
   ngOnInit() {
+
+    this.getSourcesService.sourceText$.subscribe(lesson => {
+      this.lesson = lesson;
+      this.onGenerate(this.lesson);
+    })
+
+    this.localStorageService.lessons$.subscribe(lessons => {
+      this.lessonData = lessons;
+      //this.localStorageService.setItem('lessons', JSON.stringify(this.lessonData));
+    })
+
     let data = document.getElementById(this.getSourcesService.sourceTextId);
     if (data && data.textContent) {
       this.lesson.content = data.textContent
@@ -71,38 +76,43 @@ export class LessonsComponent implements OnInit {
       console.log("TTS supported.");
     }
 
-    console.log('lessons array initial', this.lessons);
     const lessonsString = this.localStorageService.getItem('lessons');
     if (lessonsString) {
-      const lessonData: Lesson[] = JSON.parse(lessonsString);
-      this.lessons = lessonData;
-      console.log('lessons array:', this.lessons);
+      const data: Lesson[] = JSON.parse(lessonsString);
+      // this.lessons = lessonData;
+      this.localStorageService.updateLessons(data);
     } else console.log('No lessons in Local Storage');
   }
 
-  addLesson(): void {
-    let newLesson: Lesson = {id: '1', content: 'To be Added'};
-    newLesson.id = this.lessons.length.toString();
-    newLesson.content = this.lesson.content;
-    console.log('lessonData pass to addLesson', newLesson);
-    this.lessons.push(newLesson);
-    console.log(this.lessons);
-    this.localStorageService.setItem('lessons', JSON.stringify(this.lessons));
-    console.log('lessons from addLessson', this.lessons);
-
+  addLesson(lesson: Lesson): void {
+    let newLesson: Lesson = { id: '1', content: 'To be Added' };
+    newLesson.id = Date.now().toString(36);
+    newLesson.content = this.tempContent;
+    if (!lesson.title) {
+      newLesson.title = lesson.content.slice(0,15);
+    } else newLesson.title = lesson.title;
+    newLesson.tags = lesson.tags;
+    
+    const updatedLessons = [...this.lessonData, newLesson];
+    this.localStorageService.setItem('lessons', JSON.stringify(updatedLessons));
+    
+    let saved = document.getElementById('saved');
+    saved?.setAttribute('open', 'true');
   }
 
   removeLessons(key: string) {
     if (confirm('Are you sure you want to remove all items from localStorage?')) {
       this.localStorageService.removeItem(key);
+      this.localStorageService.updateLessons([]);
     }
     this.lesson.content = "All Clear";
-    this.lessons = [];
+    this.lessonData = [];
   }
 
 
   onGenerate(data: Lesson): void {
     this.lesson = data;
+    this.lesson.content = this.tempContent;
     this.originalLesson = this.copyContent(this.lesson);
     this.translatedLesson = this.copyContent(this.lesson);
     console.log("onGenerate ran", this.lesson);
@@ -119,7 +129,7 @@ export class LessonsComponent implements OnInit {
       text => {
         // assign the text to a variable or use it to update the textarea
         let newText = addLineBreaks(text);
-        this.lesson.content = newText;
+        this.tempContent = newText;
         this.onGenerate(this.lesson);
       }
     ).catch(error => {

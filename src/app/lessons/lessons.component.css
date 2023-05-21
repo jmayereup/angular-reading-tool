@@ -8,8 +8,16 @@
   
   body,
   input[type="text"],
-  button {
+  button, textarea {
     color: #333;
+    min-height: 2rem;
+    background-color: rgb(220, 243, 220);
+    border-radius: 4px;
+    border-color: darkgreen;
+    border-style: groove;
+    border-width: 2px;
+    margin-bottom: 0px;
+
   }
   
   h1 {
@@ -78,6 +86,10 @@
     margin-bottom: 5px;
     margin-right: 0px;
     font-size: medium;
+    flex-basis:content;
+    min-width: 80px;
+    margin-left: .5rem;
+    min-height: 2rem;
   }
 
   @media (max-width: 600px) {
@@ -89,10 +101,26 @@
       font-size: smaller;
     }
   }
+
+  .button-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+  }
+
+  .button-row label {
+    display: block;
+    align-self: center;
+    vertical-align: middle;
+    font-size: 1.2rem;
+    }
+
+  
   
   .grid {
     display: grid;
-    grid-template-columns: 40% 20% 20% 20%;
+    grid-template-columns: (80px);
     grid-gap: 2px;
     justify-self: center;
     margin: 0%;
@@ -110,13 +138,14 @@
     text-align: center;
   }
   
+
   .grid2 {
     display: block;
     text-align: center;
     grid-template-columns: none;
+    justify-items: center;
     grid-auto-flow: unset;
   }
-
   @media (min-width: 400px) {
      .grid2 {
     display: grid;
