@@ -42,7 +42,7 @@ export class LessonsComponent implements OnInit {
 
   sourceTextLesson: string = "";
   originalLesson: string = "";
-  tempContent: string = "";
+  lessonTextArea: any = "Not Data Selectd";
   translatedLesson?: string;
   translatedLine?: string = "Not Translated Yet";
   lessonArray: string[] = [];
@@ -54,9 +54,11 @@ export class LessonsComponent implements OnInit {
 
   ngOnInit() {
 
+    
+
     this.getSourcesService.sourceText$.subscribe(lesson => {
       this.lesson = lesson;
-      this.onGenerate(this.lesson);
+      this.onGenerate(this.lesson, this.lessonTextArea.value);
     })
 
     this.localStorageService.lessons$.subscribe(lessons => {
@@ -68,8 +70,8 @@ export class LessonsComponent implements OnInit {
     if (data && data.textContent) {
       this.lesson.content = data.textContent
       this.isBlogPost = true;
-      this.onGenerate(this.lesson);
-    } else this.onGenerate(this.lesson);
+      this.onGenerate(this.lesson, this.lessonTextArea.value);
+    } else this.onGenerate(this.lesson, this.lessonTextArea.value);
 
     if ('speechSynthesis' in window) {
       this.ttsSupported = true;
@@ -87,7 +89,7 @@ export class LessonsComponent implements OnInit {
   addLesson(lesson: Lesson): void {
     let newLesson: Lesson = { id: '1', content: 'To be Added' };
     newLesson.id = Date.now().toString(36);
-    newLesson.content = this.tempContent;
+    newLesson.content = lesson.content;
     if (!lesson.title) {
       newLesson.title = lesson.content.slice(0,15);
     } else newLesson.title = lesson.title;
@@ -110,9 +112,9 @@ export class LessonsComponent implements OnInit {
   }
 
 
-  onGenerate(data: Lesson): void {
+  onGenerate(data: Lesson, lessonTextArea: string): void {
     this.lesson = data;
-    this.lesson.content = this.tempContent;
+    this.lesson.content = lessonTextArea;
     this.originalLesson = this.copyContent(this.lesson);
     this.translatedLesson = this.copyContent(this.lesson);
     console.log("onGenerate ran", this.lesson);
@@ -124,13 +126,15 @@ export class LessonsComponent implements OnInit {
 
 
   pasteText(): void {
+    console.log(this.lesson);
+    // this.addLesson(this.lesson);
     this.lesson.content = "";
     navigator.clipboard.readText().then(
       text => {
         // assign the text to a variable or use it to update the textarea
         let newText = addLineBreaks(text);
-        this.tempContent = newText;
-        this.onGenerate(this.lesson);
+        this.lesson.content = newText;
+        this.onGenerate(this.lesson, this.lessonTextArea.value);
       }
     ).catch(error => {
       console.error('Cannot read clipboard text: ', error);
