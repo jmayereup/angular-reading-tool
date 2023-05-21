@@ -112,9 +112,9 @@ export class LessonsComponent implements OnInit {
   }
 
 
-  onGenerate(data: Lesson, lessonTextArea: string): void {
-    this.lesson = data;
-    this.lesson.content = lessonTextArea;
+  onGenerate(data: Lesson, lessonTextArea?: string): void {
+    // this.lesson = data;
+    // this.lesson.content = lessonTextArea;
     this.originalLesson = this.copyContent(this.lesson);
     this.translatedLesson = this.copyContent(this.lesson);
     console.log("onGenerate ran", this.lesson);
@@ -127,7 +127,7 @@ export class LessonsComponent implements OnInit {
 
   pasteText(): void {
     console.log(this.lesson);
-    // this.addLesson(this.lesson);
+    this.addLesson(this.lesson);
     this.lesson.content = "";
     navigator.clipboard.readText().then(
       text => {

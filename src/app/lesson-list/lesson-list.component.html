@@ -1,7 +1,8 @@
 
 <ul>
     <li *ngFor="let lesson of lessonData">
-        <button (click)="loadLesson(lesson)">OPEN</button>
+        <!-- <button (click)="onGenerate(lesson)">STUDY</button> -->
+        <button (click)="loadLesson(lesson)">EDIT</button>
         {{lesson.title | uppercase}}: {{lesson.content | shorten:120}} 
         <button class="red" (click)="removeLesson(lesson.id)">DELETE</button>
     </li>

@@ -13,12 +13,12 @@
         <div id="top" class="button-row">
             <label>Title:<input class="title-input" type="text" size="35" required name="title" [(ngModel)]="lesson.title"></label>
             <button class="header-btn" type="button" (click)="addLesson(lesson)">SAVE</button>
-            <button class="header-btn" type="button" (click)="clearText()">CLEAR</button>
+            <!-- <button class="header-btn" type="button" (click)="clearText()">CLEAR</button> -->
             <button class="header-btn" type="button" (click)="pasteText()">PASTE</button>
             <!-- <button id="reset-button" class=" header-btn red" type="button" (click)="removeLessons('lessons')">Delete All Lessons</button> -->
 
         </div>
-        <textarea id="lessonContent" name="lesson" placeholder="Blank" [(ngModel)]='tempContent'>{{lesson.content}}</textarea>
+        <textarea id="lessonContent" name="lesson" placeholder="Blank" [(ngModel)]='lesson.content'>{{lesson.content}}</textarea>
     </span>
 
     <div class='grid2' translate="yes">
