@@ -14,18 +14,7 @@ import { LocalStorageService } from '../local-storage.service';
 })
 export class LessonsComponent implements OnInit {
 
-  lessonData: Lesson[] = [{
-    id: "0",
-    content:
-      `Default Content 1`
-
-  },
-  {
-    id: "1",
-    content:
-      `Default Content 2`
-
-  }];
+  
 
 
   constructor(public getSourcesService: GetSourcesService, private localStorageService: LocalStorageService) {
@@ -33,21 +22,29 @@ export class LessonsComponent implements OnInit {
 
 
 
-  lesson: Lesson = {
-    id: "1",
-    content:
-      `test`
+  // lesson: Lesson = {
+  //   id: "1",
+  //   content:
+  //     `test`,
+    
 
-  }
+  // }
+  lessonData: Lesson[] = [];
+  // sourceTextLesson: string = "";
+  
+  
+  //Temporary Values for adding lessons and generating lbl text.
+  lessonTextAreaValue: string = "Initial Value";
+  ltitle: string = "No Title";
+  ldate: string = "";
+  // lblLesson: string = "";
 
-  sourceTextLesson: string = "";
-  originalLesson: string = "";
-  lessonTextArea: any = "Not Data Selectd";
-  translatedLesson?: string;
-  translatedLine?: string = "Not Translated Yet";
-  lessonArray: string[] = [];
+  // translatedLesson?: string;
+  // translatedLine?: string = "Not Translated Yet";
+  // lessonArray: string[] = [];
   rate: number = .7;
   selectedLanguage = 'en-CA';
+  
   isBlogPost: boolean = false;
   ttsSupported: boolean = false;
 
@@ -57,8 +54,8 @@ export class LessonsComponent implements OnInit {
     
 
     this.getSourcesService.sourceText$.subscribe(lesson => {
-      this.lesson = lesson;
-      this.onGenerate(this.lesson, this.lessonTextArea.value);
+      this.lessonTextAreaValue = lesson.content;
+      // this.onGenerate();
     })
 
     this.localStorageService.lessons$.subscribe(lessons => {
@@ -68,10 +65,10 @@ export class LessonsComponent implements OnInit {
 
     let data = document.getElementById(this.getSourcesService.sourceTextId);
     if (data && data.textContent) {
-      this.lesson.content = data.textContent
+      this.lessonTextAreaValue = data.textContent
       this.isBlogPost = true;
-      this.onGenerate(this.lesson, this.lessonTextArea.value);
-    } else this.onGenerate(this.lesson, this.lessonTextArea.value);
+      // this.onGenerate();
+    } 
 
     if ('speechSynthesis' in window) {
       this.ttsSupported = true;
@@ -86,14 +83,12 @@ export class LessonsComponent implements OnInit {
     } else console.log('No lessons in Local Storage');
   }
 
-  addLesson(lesson: Lesson): void {
+  addLesson(): void {
     let newLesson: Lesson = { id: '1', content: 'To be Added' };
     newLesson.id = Date.now().toString(36);
-    newLesson.content = lesson.content;
-    if (!lesson.title) {
-      newLesson.title = lesson.content.slice(0,15);
-    } else newLesson.title = lesson.title;
-    newLesson.tags = lesson.tags;
+    newLesson.content = this.lessonTextAreaValue;
+    newLesson.title = this.ltitle;
+    newLesson.date = new Date();
     
     const updatedLessons = [...this.lessonData, newLesson];
     this.localStorageService.setItem('lessons', JSON.stringify(updatedLessons));
@@ -107,34 +102,34 @@ export class LessonsComponent implements OnInit {
       this.localStorageService.removeItem(key);
       this.localStorageService.updateLessons([]);
     }
-    this.lesson.content = "All Clear";
+    // this.lesson.content = "All Clear";
     this.lessonData = [];
   }
 
 
-  onGenerate(data: Lesson, lessonTextArea?: string): void {
-    // this.lesson = data;
-    // this.lesson.content = lessonTextArea;
-    this.originalLesson = this.copyContent(this.lesson);
-    this.translatedLesson = this.copyContent(this.lesson);
-    console.log("onGenerate ran", this.lesson);
-  }
+  // onGenerate(): void {
+  //   // this.lesson = data;
+  //   // this.lesson.content = lessonTextArea;
+  //   this.lblLesson = this.lessonTextAreaValue;
+  //   // this.translatedLesson = this.copyContent(this.lesson);
+  //   console.log("onGenerate ran", this.lessonTextAreaValue);
+  // }
 
-  copyContent(lesson: Lesson): string {
-    return this.lesson.content;
-  }
+  // copyContent(lesson: Lesson): string {
+  //   return this.lesson.content;
+  // }
 
 
   pasteText(): void {
-    console.log(this.lesson);
-    this.addLesson(this.lesson);
-    this.lesson.content = "";
+    // console.log(this.lesson);
+    // this.addLesson();
+    this.lessonTextAreaValue = "";
     navigator.clipboard.readText().then(
       text => {
         // assign the text to a variable or use it to update the textarea
         let newText = addLineBreaks(text);
-        this.lesson.content = newText;
-        this.onGenerate(this.lesson, this.lessonTextArea.value);
+        this.lessonTextAreaValue = newText;
+        // this.onGenerate();
       }
     ).catch(error => {
       console.error('Cannot read clipboard text: ', error);
@@ -143,8 +138,8 @@ export class LessonsComponent implements OnInit {
 
 
   clearText(): void {
-    this.lesson.content = "";
-    this.getSourcesService.lessonID = "";
+    this.lessonTextAreaValue = "";
+    // this.getSourcesService.lessonID = "";
   }
 
   // async addLesson() {

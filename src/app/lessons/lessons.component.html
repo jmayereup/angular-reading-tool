@@ -11,14 +11,14 @@
             <br><br><strong>Example Prompt:</strong> Please create a short and easy dialogue between two people discussing a new park.<br><br>
            </div>
         <div id="top" class="button-row">
-            <label>Title:<input class="title-input" type="text" size="35" required name="title" [(ngModel)]="lesson.title"></label>
-            <button class="header-btn" type="button" (click)="addLesson(lesson)">SAVE</button>
-            <!-- <button class="header-btn" type="button" (click)="clearText()">CLEAR</button> -->
+            <label>Title:<input class="title-input" type="text" size="35" required name="ltitle" [(ngModel)]="ltitle"></label>
+            <button class="header-btn" type="button" (click)="addLesson()">SAVE</button>
+            <button class="header-btn" type="button" (click)="clearText()">CLEAR</button>
             <button class="header-btn" type="button" (click)="pasteText()">PASTE</button>
             <!-- <button id="reset-button" class=" header-btn red" type="button" (click)="removeLessons('lessons')">Delete All Lessons</button> -->
 
         </div>
-        <textarea id="lessonContent" name="lesson" placeholder="Blank" [(ngModel)]='lesson.content'>{{lesson.content}}</textarea>
+        <textarea name="lessonTextAreaValue" [(ngModel)]='lessonTextAreaValue'>{{lessonTextAreaValue}}</textarea>
     </span>
 
     <div class='grid2' translate="yes">
@@ -44,7 +44,7 @@
             </select>
         </div>
     </div>
-    <button *ngIf='!isBlogPost' class="green" type="button" (click)="onGenerate(lesson)" translate="yes">Generate Lesson</button>
+    <!-- <button *ngIf='!isBlogPost' class="green" type="button" (click)="onGenerate()" translate="yes">Generate Lesson</button> -->
     <div class="radio-group" translate="yes">
         <strong>Voice Speed:</strong>
         <span>
@@ -70,6 +70,6 @@
 </ul>
 <div class="grid">
 </div>
-<details id="saved" class="blue"><summary>Saved Lessons</summary><app-lesson-list></app-lesson-list></details>
-<app-lbl [selectedLanguage]="selectedLanguage" [rate]="rate" [originalText]="originalLesson"></app-lbl>
+<details id="saved" class="blue" *ngIf="!isBlogPost"><summary>Saved Lessons</summary><app-lesson-list></app-lesson-list></details>
+<app-lbl [selectedLanguage]="selectedLanguage" [rate]="rate" [originalText]="lessonTextAreaValue"></app-lbl>
 
