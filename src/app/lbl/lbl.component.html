@@ -1,13 +1,13 @@
 <details>
     <summary>Original</summary>
-    <button type="button" class="headphones"
+    <button type="button" class="icons"
         (click)="speakService.readUtterance(fullText.textContent || '', rate, selectedLanguage)">
         <i class="fa fa-headphones"></i>SPEAK</button>
     <span class="detailsText" #fullText translate="no">{{originalText}}</span>
 </details>
 <details>
     <summary>Translation</summary>
-    <button type="button" class="headphones"
+    <button type="button" class="icons"
         (click)="speakService.readUtterance(translatedText.textContent || '', rate)">
         <i class="fa fa-headphones"></i>SPEAK</button>
     <span class="detailsText" #translatedText translate="yes">{{originalText}}</span>
@@ -19,13 +19,13 @@
     <div class="lesson" *ngFor="let line of lessonArray">
 
         <span class="original"><span>{{line}}</span>
-            <button *ngIf="line.length>1" type="button" class="headphones"
+            <button *ngIf="line.length>1" type="button" class="icons"
                 (click)="speakService.readUtterance(line, rate, selectedLanguage)"><i
                     class="fa fa-headphones"></i>SPEAK</button><br>
         </span>
         <span *ngIf="showTranslation == true"><span class="translated" #translatedSpan
                 translate="yes">{{copyLine(line)}}</span>
-            <button *ngIf="line.length>1" type="button" class="headphones"
+            <button *ngIf="line.length>1" type="button" class="icons"
                 (click)="speakService.readUtterance(translatedSpan.textContent || '', rate)"><i
                     class="fa fa-headphones"></i>SPEAK</button></span>
     </div>

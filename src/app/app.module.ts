@@ -39,10 +39,6 @@ export function windowProvider() {
   imports: [
     BrowserModule,
     FormsModule,
-    // provideFirebaseApp(() => initializeApp(environment.firebase)),
-    // provideAnalytics(() => getAnalytics()),
-    // provideAuth(() => getAuth()),
-    // provideFirestore(() => getFirestore())
   ],
   providers: [
     { provide: 'window', useFactory: windowProvider },

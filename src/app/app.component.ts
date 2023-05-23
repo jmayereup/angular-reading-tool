@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // const sourceElement = document.getElementById(this.sourceText);
     this.getSourcesService.setIds(this.sourceText, this.vocabList);
-    console.log("app-component initialized");
+    console.log("app-component initialized", this.sourceText);
   }
   
 }

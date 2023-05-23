@@ -9,7 +9,6 @@ export class LocalStorageService {
 
   constructor() { }
 
-
   private lessonsSubject = new BehaviorSubject<Lesson[]>([{
     id: "0",
     content:
@@ -25,10 +24,16 @@ export class LocalStorageService {
 
   lessons$ = this.lessonsSubject.asObservable();
 
-  updateLessons(newLessons: Lesson[]) {
+  public updateLessons(newLessons: Lesson[]) {
     this.lessonsSubject.next(newLessons);
   }
 
+  public updateLessonById(id: string, updatedLesson: Lesson) {
+    let lessons = this.lessonsSubject.getValue();
+    let index = lessons.findIndex(lesson => lesson.id === id);
+    lessons[index] = updatedLesson;
+    this.lessonsSubject.next(lessons);
+  }
 
 
   public setItem(key: string, data: string): void {

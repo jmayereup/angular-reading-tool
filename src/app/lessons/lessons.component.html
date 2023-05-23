@@ -1,75 +1,82 @@
-
 <form>
   <div *ngIf="!ttsSupported" translate="yes" class="warning">
     <strong>SPEECH NOT SUPPORTED:
       You need to open this page in a browser like Firefox, Chrome, Safari or Edge.
-      It will not work if you open it from most messaging apps.</strong></div>
-    <span *ngIf="!isBlogPost" translate="yes">
-        <div>You can use this tool to help with reading your own texts.<br><br>
-            Try going to <a href="https://ai.com" target="_blank">ai.com</a> and ask it for a dialogue or story about anything. 
-            <br>Then paste the results in the box below.
-            <br><br><strong>Example Prompt:</strong> Please create a short and easy dialogue between two people discussing a new park.<br><br>
-           </div>
-        <div id="top" class="button-row">
-            <label>Title:<input class="title-input" type="text" size="35" required name="ltitle" [(ngModel)]="ltitle"></label>
-            <button class="header-btn" type="button" (click)="addLesson()">SAVE</button>
-            <button class="header-btn" type="button" (click)="clearText()">CLEAR</button>
-            <button class="header-btn" type="button" (click)="pasteText()">PASTE</button>
-            <!-- <button id="reset-button" class=" header-btn red" type="button" (click)="removeLessons('lessons')">Delete All Lessons</button> -->
-
-        </div>
-        <textarea name="lessonTextAreaValue" [(ngModel)]='lessonTextAreaValue'>{{lessonTextAreaValue}}</textarea>
-    </span>
-
-    <div class='grid2' translate="yes">
-        <div>
-            <span id="google_translate_element"></span>
-        </div>
-        <div><label translate="yes">You can choose a voice for the source text: </label>
-            <select #language name="selectedLanguage" [(ngModel)]="selectedLanguage">
-                <option value="zh-CN">Chinese (Simplified)</option>
-                <option value="nl-NL">Dutch (Netherlands)</option>
-                <option value="en-CA" selected>English</option>
-                <option value="fil-PH">Filipino (Philippines)</option>
-                <option value="fr-FR">French (France)</option>
-                <option value="de-DE">German (Germany)</option>
-                <option value="it-IT">Italian (Italy)</option>
-                <option value="ja-JP">Japanese (Japan)</option>
-                <option value="pt-PT">Portuguese (Portugal)</option>
-                <option value="ru-RU">Russian (Russia)</option>
-                <option value="es-ES">Spanish (Spain)</option>
-                <option value="es-MX">Spanish (Mexico)</option>
-                <option value="th-TH">Thai (Thailand)</option>
-                <option value="uk-UA">Ukrainian (Ukraine)</option>
-            </select>
-        </div>
+      It will not work if you open it from most messaging apps.</strong>
+  </div>
+  <span *ngIf="!isBlogPost" translate="yes">
+    <div>You can use this tool to help with reading your own texts.<br><br>
+      Try going to <a href="https://ai.com" target="_blank">ai.com</a> and ask it for a dialogue or story about
+      anything.
+      <br>Then paste the results in the box below.
+      <br><br><strong>Example Prompt:</strong> Please create a short and easy dialogue between two people discussing a
+      new park.<br>
     </div>
-    <!-- <button *ngIf='!isBlogPost' class="green" type="button" (click)="onGenerate()" translate="yes">Generate Lesson</button> -->
-    <div class="radio-group" translate="yes">
-        <strong>Voice Speed:</strong>
-        <span>
-          <label>
-            <input type="radio" name="rate" [(ngModel)]="rate" [value]="0.7" /> Slow
-          </label>
-        </span>
-        <span>
-          <label>
-            <input type="radio" name="rate" [(ngModel)]="rate" [value]="1" /> Normal
-          </label>
-        </span>
-        <span>
-          <label>
-            <input type="radio" name="rate" [(ngModel)]="rate" [value]="1.2" /> Fast
-          </label>
-        </span>
+    <div class='grid2' translate="yes">
+      <div class="grid-box">
+        <span id="google_translate_element"></span>
       </div>
+      <div class="grid-box select">
+        <select #language name="selectedLanguage" [(ngModel)]="selectedLanguage">
+          <option value="zh-CN">Chinese (Simplified)</option>
+          <option value="nl-NL">Dutch (Netherlands)</option>
+          <option value="en-CA" selected>English</option>
+          <option value="en-US">English 2</option>
+          <option value="fil-PH">Filipino (Philippines)</option>
+          <option value="fr-FR">French (France)</option>
+          <option value="de-DE">German (Germany)</option>
+          <option value="it-IT">Italian (Italy)</option>
+          <option value="ja-JP">Japanese (Japan)</option>
+          <option value="pt-PT">Portuguese (Portugal)</option>
+          <option value="ru-RU">Russian (Russia)</option>
+          <option value="es-ES">Spanish (Spain)</option>
+          <option value="es-MX">Spanish (Mexico)</option>
+          <option value="th-TH">Thai (Thailand)</option>
+          <option value="uk-UA">Ukrainian (Ukraine)</option>
+        </select><label translate="yes">Speech Voice: </label>
+      </div>
+    </div>
+
+    <div id="top" class="button-row">
+      <span class="label-span"><label>Title: <input class="title-input" type="text" size="35" required name="ltitle"
+          [(ngModel)]="ltitle"></label></span>
+      <span class="buttons"><button class="header-btn" type="button" (click)="addLesson()">SAVE NEW</button>
+      <button class="header-btn" type="button" (click)="updateLesson()">UPDATE</button>
+      <button class="header-btn" type="button" (click)="clearText()">CLEAR</button>
+      <button class="header-btn" type="button" (click)="pasteText()">PASTE</button>
+      <!-- <button id="reset-button" class=" header-btn red" type="button" (click)="removeLessons('lessons')">Delete All Lessons</button> -->
+      </span>
+      
+
+    </div>
+    <textarea name="lessonTextAreaValue" [(ngModel)]='lessonTextAreaValue'>{{lessonTextAreaValue}}</textarea>
+  </span>
+
+
+  <div class="radio-group" translate="yes">
+    <strong>Voice Speed:</strong>
+    <span>
+      <label>
+        <input type="radio" name="rate" [(ngModel)]="rate" [value]="0.7" /> Slow
+      </label>
+    </span>
+    <span>
+      <label>
+        <input type="radio" name="rate" [(ngModel)]="rate" [value]="1" /> Normal
+      </label>
+    </span>
+    <span>
+      <label>
+        <input type="radio" name="rate" [(ngModel)]="rate" [value]="1.2" /> Fast
+      </label>
+    </span>
+  </div>
 
 </form>
-<ul>
-<!-- <li *ngFor="let l of lessonData">{{l.content}} - {{l.id}}</li> -->
-</ul>
 <div class="grid">
 </div>
-<details id="saved" class="blue" *ngIf="!isBlogPost"><summary>Saved Lessons</summary><app-lesson-list></app-lesson-list></details>
+<details id="saved" class="blue" *ngIf="!isBlogPost">
+  <summary>Saved Lessons</summary>
+  <app-lesson-list></app-lesson-list>
+</details>
 <app-lbl [selectedLanguage]="selectedLanguage" [rate]="rate" [originalText]="lessonTextAreaValue"></app-lbl>
-
