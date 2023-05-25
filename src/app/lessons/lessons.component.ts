@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson';
 import { addLineBreaks } from '../utils';
 import { GetSourcesService } from '../get-sources.service';
-import { Firestore, setDoc, getDoc, doc, collection, collectionData } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-// import { LblComponent } from '../lbl/lbl.component';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-lessons',
@@ -13,84 +11,87 @@ import { Observable } from 'rxjs';
 })
 export class LessonsComponent implements OnInit {
 
-  lesson$: Observable<Lesson[]>;
+  constructor(public getSourcesService: GetSourcesService, private localStorageService: LocalStorageService) {}
 
+  lessonData: Lesson[] = [];
 
-  constructor(public getSourcesService: GetSourcesService, private firestore: Firestore) {
-    const lessonCollection = collection(this.firestore, 'lessons');
-    this.lesson$ = collectionData(lessonCollection, { idField: 'id'}) as Observable<Lesson[]>;
-    this.getSourcesService.sourceText$.subscribe(lesson => {
-      this.onGenerate(lesson);
-    });
+  //Temporary Values for adding lessons and generating lbl text.
+  lessonTextAreaValue: string = "Initial Value";
+  ltitle: string = "No Title";
+  ldate: string = "";
 
-  }
-
-
-
-  lesson: Lesson = {
-    id: "1",
-    content:
-      `test`
-
-  }
-
-  sourceTextLesson: string = "";
-  originalLesson: string = "";
-  translatedLesson?: string;
-  translatedLine?: string = "Not Translated Yet";
-  lessonArray: string[] = [];
+  //Values to pass to LBL Component for speech synthesis
   rate: number = .7;
   selectedLanguage = 'en-CA';
-  isBlogPost: boolean = false;
-  ttsSupported: boolean = false;
+
+
+  isBlogPost: boolean = false;  //True removes input interface for blog post embeds
+  ttsSupported: boolean = false; //Triggers advice to open link in a supported browser
 
 
   ngOnInit() {
+
+    this.getSourcesService.sourceText$.subscribe(lesson => {
+      this.lessonTextAreaValue = lesson.content;
+      lesson.title ? this.ltitle = lesson.title : null;
+    })  // Loads the sourceText div for blogs posts
+
+    this.localStorageService.lessons$.subscribe(lessons => {
+      this.lessonData = lessons;
+    }) //Retrieves saved lessons from local storage
+
     let data = document.getElementById(this.getSourcesService.sourceTextId);
     if (data && data.textContent) {
-      this.lesson.content = data.textContent
+      this.lessonTextAreaValue = data.textContent
       this.isBlogPost = true;
-      this.onGenerate(this.lesson);
-    } else this.onGenerate(this.lesson);
+    } //Checks to see if this is post or the standalone reading-tool
 
     if ('speechSynthesis' in window) {
       this.ttsSupported = true;
       console.log("TTS supported.");
     }
+
+    const lessonsString = this.localStorageService.getItem('lessons');
+    if (lessonsString) {
+      const data: Lesson[] = JSON.parse(lessonsString);
+      this.localStorageService.updateLessons(data);
+    } else console.log('No lessons in Local Storage');
   }
 
-  // async addLesson(lessonData: Lesson, lessonId?: string) {
-  //   console.log(lessonId);
-  //   const lessonCollection = collection(this.firestore, 'lessons');
-  //   let lessonDoc;
-  //   if (lessonId) {
-  //     lessonDoc = doc(lessonCollection, lessonId);
-  //   } else lessonDoc = doc(lessonCollection);
+  addLesson(): void {
+    let newLesson: Lesson = { id: '1', content: 'To be Added' };
+    newLesson.id = Date.now().toString(36);
+    newLesson.content = this.lessonTextAreaValue;
+    newLesson.title = this.ltitle;
+    newLesson.date = new Date();
 
-  //   await setDoc(lessonDoc, lessonData);
-  // }
+    const updatedLessons = [...this.lessonData, newLesson];
+    this.localStorageService.setItem('lessons', JSON.stringify(updatedLessons));
 
-
-  onGenerate(data: Lesson): void {
-    this.lesson = data;
-    this.originalLesson = this.copyContent(this.lesson);
-    this.translatedLesson = this.copyContent(this.lesson);
-    console.log("onGenerate ran", this.lesson);
+    let saved = document.getElementById('saved');
+    saved?.setAttribute('open', 'true');
   }
 
-  copyContent(lesson: Lesson): string {
-    return this.lesson.content;
+  removeLessons(key: string) {
+    if (confirm('Are you sure you want to remove all items from localStorage?')) {
+      this.localStorageService.removeItem(key);
+      this.localStorageService.updateLessons([]);
+    }
+    this.lessonData = [];
   }
 
+  updateLesson() {
+    this.getSourcesService.lesson.content = this.lessonTextAreaValue;
+    this.getSourcesService.lesson.title = this.ltitle;
+    this.localStorageService.updateLessonById(this.getSourcesService.lesson.id, this.getSourcesService.lesson);
+  }
 
   pasteText(): void {
-    this.lesson.content = "";
+    this.lessonTextAreaValue = "";
     navigator.clipboard.readText().then(
       text => {
-        // assign the text to a variable or use it to update the textarea
         let newText = addLineBreaks(text);
-        this.lesson.content = newText;
-        this.onGenerate(this.lesson);
+        this.lessonTextAreaValue = newText;
       }
     ).catch(error => {
       console.error('Cannot read clipboard text: ', error);
@@ -99,30 +100,8 @@ export class LessonsComponent implements OnInit {
 
 
   clearText(): void {
-    this.lesson.content = "";
-    this.getSourcesService.lessonID = "";
+    this.lessonTextAreaValue = "";
   }
-
-  async addLesson() {
-    let newText = "";
-    let lessonID = this.getSourcesService.lessonID;
-    let textAreaText = document.getElementById('lessonContent');
-    (textAreaText && textAreaText.textContent) ? newText = textAreaText.textContent : newText="Empty";
-    console.log(newText);
-    console.log("ID", this.getSourcesService.lessonID);
-    const lessonCollection = collection(this.firestore, 'lessons');
-    let lessonDoc;
-    let lessonData: Lesson = {id: '', content: newText};
-    if (this.getSourcesService.lessonID) {
-      lessonDoc = doc(lessonCollection, lessonID);
-      const lessonSnapshot = await getDoc(lessonDoc);
-      lessonData = lessonSnapshot.data() as Lesson;
-      lessonData.content = newText;
-    } else lessonDoc = doc(lessonCollection);
-    // lessonData.content = newText;
-    await setDoc(lessonDoc, lessonData);
-  }
-
 
 }
 

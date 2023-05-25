@@ -10,15 +10,13 @@ export class AppComponent implements OnInit {
   title = 'Line-by-Line Reading Tool';
   @Input() sourceText: string = "source-text";
   @Input() vocabList: string = "vocab-list";
-  sourceTextContent: string = "";
 
   constructor(private getSourcesService: GetSourcesService) {}
 
   ngOnInit() {
-    const sourceElement = document.getElementById(this.sourceText);
-    sourceElement ? this.sourceTextContent = sourceElement.innerText : this.sourceTextContent = "";
+    // const sourceElement = document.getElementById(this.sourceText);
     this.getSourcesService.setIds(this.sourceText, this.vocabList);
-    console.log("app-component initialized");
+    console.log("app-component initialized", this.sourceText);
   }
   
 }

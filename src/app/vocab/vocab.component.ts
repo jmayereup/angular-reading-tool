@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SpeakService } from '../speak.service';
 import { GetSourcesService } from '../get-sources.service';
-import { splitByLineBreaks, extractWord } from '../utils';
+import { splitByLineBreaks } from '../utils';
 
 @Component({
   selector: 'app-vocab',
@@ -31,9 +31,10 @@ export class VocabComponent implements OnInit {
      
     this.list = sourceElement.textContent;
     sourceElement.remove();
+    this.vocabArray = splitByLineBreaks(this.list).map(line => line.split(/:|-/));
     }
     else this.hasVocab = false;
-    this.vocabArray = splitByLineBreaks(this.list).map(line => line.split(/:|-/));
+    
     console.log(this.vocabArray);
 
   }

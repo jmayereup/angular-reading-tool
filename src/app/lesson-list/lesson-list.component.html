@@ -1,8 +1,6 @@
-
-<ul>
-    <li *ngFor="let lesson of lessonText$ | async">
-        <button class="red" (click)="removeLesson(lesson.id)">DELETE</button>
-        <button (click)="loadLesson(lesson.id)">OPEN</button>
-        {{lesson.content}} - Tags: {{lesson.tags}}
-    </li>
-</ul>
+<div class="lesson-list" *ngFor="let lesson of lessonData">
+    <!-- <button (click)="onGenerate(lesson)">STUDY</button> -->
+    <button class="icons" (click)="loadLesson(lesson)">EDIT</button>
+    {{lesson.title | uppercase}}: {{lesson.content | shorten:120}} 
+    <button class="icons red" (click)="removeLesson(lesson.id)">DELETE</button>
+</div>
