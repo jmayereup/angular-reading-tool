@@ -103,5 +103,9 @@ export class LessonsComponent implements OnInit {
     this.lessonTextAreaValue = "";
   }
 
+  copyUrl(): void {
+    navigator.clipboard.writeText(window.location.href);
+  }
+
 }
 

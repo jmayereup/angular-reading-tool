@@ -1,8 +1,11 @@
 <form>
   <div *ngIf="!ttsSupported" translate="yes" class="warning">
     <strong>SPEECH NOT SUPPORTED:
-      You need to open this page in a browser like Firefox, Chrome, Safari or Edge.
-      It will not work if you open it from most messaging apps.</strong>
+      Your current browser does not support text to speech.</strong> 
+      If you want to use the "speak" feature, please click this button. 
+      <button class="copy-button" (click)="copyUrl()">Copy URL</button> Next, paste it into a browswer 
+      that supports text to speech (E.g. Chrome, Edge, Firefox, or Safari).
+
   </div>
   <span *ngIf="!isBlogPost" translate="yes">
     <div>You can use this tool to help with reading your own texts.<br><br>

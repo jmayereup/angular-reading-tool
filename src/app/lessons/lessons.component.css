@@ -242,3 +242,10 @@ vertical-align: middle;
   margin-bottom: .25rem;
  }
 
+ .copy-button {
+  border-style: solid;
+  border-width: thin;
+  border-color: #666666;
+  min-height: fit-content;
+ }
+
