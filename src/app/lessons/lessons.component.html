@@ -8,9 +8,9 @@
 
   </div>
   <span *ngIf="!isBlogPost" translate="yes">
-    <div>You can use this tool to help with reading your own texts.<br><br>
+    <div>You can use this tool to help with reading your own texts.<br>
       Try going to <a href="https://ai.com" target="_blank">ai.com</a> and ask it for a dialogue or story about
-      anything.
+      anything of interest to you.
       <br>Then paste the results in the box below.
       <br><br><strong>Example Prompt:</strong> Please create a short and easy dialogue between two people discussing a
       new park.<br>
@@ -41,7 +41,7 @@
     </div>
 
     <div id="top" class="button-row">
-      <span class="label-span"><label>Title: <input class="title-input" type="text" size="35" required name="ltitle"
+      <span class="label-span"><label>Title: <input class="title-input" type="text" size="28" required name="ltitle"
           [(ngModel)]="ltitle"></label></span>
       <span class="buttons"><button class="header-btn" type="button" (click)="addLesson()">SAVE NEW</button>
       <button class="header-btn" type="button" (click)="updateLesson()">UPDATE</button>

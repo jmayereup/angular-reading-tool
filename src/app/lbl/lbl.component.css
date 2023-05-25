@@ -60,6 +60,7 @@ details summary {
 button.icons {
   display: inline-block;
   font-size: x-small;
+  font-weight: 500;
   min-height: 21px;
   vertical-align: middle;
   border-style: solid;
@@ -68,4 +69,5 @@ button.icons {
   border-color: darkgreen;
   background-color: #dcf3dc;
   margin-left: 4px;
+  margin-right: 4px;
 }
