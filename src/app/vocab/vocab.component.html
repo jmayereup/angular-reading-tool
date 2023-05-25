@@ -1,17 +1,19 @@
 <div *ngIf="hasVocab">
-    <details><summary>Vocabulary</summary>
-    <div *ngFor="let line of vocabArray">
-        <span *ngIf="line[0].trim().length>0"><strong>{{line[0]}}</strong><button type="button" class="icons"
-                (click)="speakService.readUtterance(line[0], rate, selectedLanguage)">
-                SPEAK</button> - {{line[1]}} 
+    <details>
+        <summary>Vocabulary</summary>
+        <div *ngFor="let line of vocabArray">
+            <span *ngIf="line[0].trim().length>0"><strong>{{line[0]}}</strong><button type="button" class="icons"
+                    (click)="speakService.readUtterance(line[0], rate, selectedLanguage)">
+                    SPEAK</button> - {{line[1]}}
                 <span #translatedVocab translate=yes>({{line[0].trimStart()}}</span><button type="button" class="icons"
-                (click)="speakService.readUtterance(translatedVocab.innerText || '', rate)">SPEAK</button>)
-        </span>
-    </div>
-</details>
-<details *ngIf="vocabArray.length>6" translate="no"><summary>Matching Game</summary>
-    <div class="matchContainer">
-    <app-matching-game [matchList]='vocabArray'></app-matching-game>
-</div>
-</details>
+                    (click)="speakService.readUtterance(translatedVocab.innerText || '', rate)">SPEAK</button>)
+            </span>
+        </div>
+    </details>
+    <details *ngIf="vocabArray.length>6" translate="no">
+        <summary>Matching Game</summary>
+        <div class="matchContainer">
+            <app-matching-game [matchList]='vocabArray'></app-matching-game>
+        </div>
+    </details>
 </div>

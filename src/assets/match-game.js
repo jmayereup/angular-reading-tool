@@ -226,12 +226,12 @@ class MatchGameMaker extends HTMLElement {
 
         .button {
             appearance: none;
-            background-color: #2ea44f;
+            background-color: #dcf3dc;
             border: 1px solid rgba(27, 31, 35, .15);
             border-radius: 6px;
             box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
             box-sizing: border-box;
-            color: #fff;
+            color: black;
             font-size: 14px;
             font-weight: 600;
             line-height: 20px;
