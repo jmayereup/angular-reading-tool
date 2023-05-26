@@ -64,7 +64,7 @@ label {
 }
 
 .grid2 {
-  display: block;
+  display: inline-block;
   text-align: center;
   grid-template-columns: none;
   justify-items: center;
@@ -129,9 +129,11 @@ details summary {
 
 .select {
   display: flex;
+  align-items: center;
   flex-direction: column;
   vertical-align: middle;
   margin: 4px;
+  margin-top: 10px;
   
 }
 

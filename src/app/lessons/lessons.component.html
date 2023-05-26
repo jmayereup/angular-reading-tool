@@ -1,12 +1,4 @@
 <form>
-  <div *ngIf="!ttsSupported" translate="yes" class="warning">
-    <strong>SPEECH NOT SUPPORTED:
-      Your current browser does not support text to speech.</strong> 
-      If you want to use the "speak" feature, please click this button. 
-      <button class="copy-button" (click)="copyUrl()">Copy URL</button> Next, paste it into a browswer 
-      that supports text to speech (E.g. Chrome, Edge, Firefox, or Safari).
-
-  </div>
   <span *ngIf="!isBlogPost" translate="yes">
     <div>You can use this tool to help with reading your own texts.<br>
       Try going to <a href="https://ai.com" target="_blank">ai.com</a> and ask it for a dialogue or story about
@@ -15,41 +7,50 @@
       <br><br><strong>Example Prompt:</strong> Please create a short and easy dialogue between two people discussing a
       new park.<br>
     </div>
-    <div class='grid2' translate="yes">
-      <div class="grid-box">
-        <span id="google_translate_element"></span>
-      </div>
-      <div class="grid-box select">
-        <select #language name="selectedLanguage" [(ngModel)]="selectedLanguage">
-          <option value="zh-CN">Chinese (Simplified)</option>
-          <option value="nl-NL">Dutch (Netherlands)</option>
-          <option value="en-CA" selected>English</option>
-          <option value="en-US">English 2</option>
-          <option value="fil-PH">Filipino (Philippines)</option>
-          <option value="fr-FR">French (France)</option>
-          <option value="de-DE">German (Germany)</option>
-          <option value="it-IT">Italian (Italy)</option>
-          <option value="ja-JP">Japanese (Japan)</option>
-          <option value="pt-PT">Portuguese (Portugal)</option>
-          <option value="ru-RU">Russian (Russia)</option>
-          <option value="es-ES">Spanish (Spain)</option>
-          <option value="es-MX">Spanish (Mexico)</option>
-          <option value="th-TH">Thai (Thailand)</option>
-          <option value="uk-UA">Ukrainian (Ukraine)</option>
-        </select><label translate="yes">Speech Voice: </label>
-      </div>
+  </span>
+  <div class='grid2' translate="yes">
+    <div class="grid-box">
+      <span id="google_translate_element"></span>
     </div>
+    <div class="grid-box select">
+      <select #language name="selectedLanguage" [(ngModel)]="selectedLanguage">
+        <option value="zh-CN">Chinese (Simplified)</option>
+        <option value="nl-NL">Dutch (Netherlands)</option>
+        <option value="en-CA" selected>English</option>
+        <option value="en-US">English 2</option>
+        <option value="fil-PH">Filipino (Philippines)</option>
+        <option value="fr-FR">French (France)</option>
+        <option value="de-DE">German (Germany)</option>
+        <option value="it-IT">Italian (Italy)</option>
+        <option value="ja-JP">Japanese (Japan)</option>
+        <option value="pt-PT">Portuguese (Portugal)</option>
+        <option value="ru-RU">Russian (Russia)</option>
+        <option value="es-ES">Spanish (Spain)</option>
+        <option value="es-MX">Spanish (Mexico)</option>
+        <option value="th-TH">Thai (Thailand)</option>
+        <option value="uk-UA">Ukrainian (Ukraine)</option>
+      </select><label translate="yes">Speech Voice: </label>
+    </div>
+    <div *ngIf="!ttsSupported" translate="yes" class="warning">
+      <strong>SPEECH NOT SUPPORTED:
+        Your current browser does not support text to speech.</strong>
+      If you want to use the "speak" feature, please click this button.
+      <button class="copy-button" (click)="copyUrl()">Copy URL</button> Next, paste it into a browswer
+      that supports text to speech (E.g. Chrome, Edge, Firefox, or Safari).
 
+    </div>
+  </div>
+  <span *ngIf="!isBlogPost" translate="yes">
     <div id="top" class="button-row">
       <span class="label-span"><label>Title: <input class="title-input" type="text" size="28" required name="ltitle"
-          [(ngModel)]="ltitle"></label></span>
+            [(ngModel)]="ltitle"></label></span>
       <span class="buttons"><button class="header-btn" type="button" (click)="addLesson()">SAVE NEW</button>
-      <button class="header-btn" type="button" (click)="updateLesson()">UPDATE</button>
-      <button class="header-btn" type="button" (click)="clearText()">CLEAR</button>
-      <button class="header-btn" type="button" (click)="pasteText()">PASTE</button>
-      <!-- <button id="reset-button" class=" header-btn red" type="button" (click)="removeLessons('lessons')">Delete All Lessons</button> -->
+        <button class="header-btn" type="button" (click)="updateLesson()">UPDATE</button>
+        <button class="header-btn" type="button" (click)="clearText()">CLEAR</button>
+        <button class="header-btn" type="button" (click)="pasteText()">PASTE</button>
+        <!-- <button id="reset-button" class=" header-btn red" type="button" (click)="removeLessons('lessons')">Delete All Lessons</button> -->
       </span>
-      
+
 
     </div>
     <textarea name="lessonTextAreaValue" [(ngModel)]='lessonTextAreaValue'>{{lessonTextAreaValue}}</textarea>
