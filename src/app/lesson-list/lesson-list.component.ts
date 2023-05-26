@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson';
-// import { Firestore, doc, collection, collectionData, deleteDoc, setDoc, getDoc } from '@angular/fire/firestore';
 import { GetSourcesService } from '../get-sources.service';
-import { Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage.service';
 
 @Component({

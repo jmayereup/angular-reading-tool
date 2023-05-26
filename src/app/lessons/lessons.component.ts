@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Lesson } from '../lesson';
 import { addLineBreaks } from '../utils';
 import { GetSourcesService } from '../get-sources.service';
 import { LocalStorageService } from '../local-storage.service';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-lessons',
@@ -11,7 +12,9 @@ import { LocalStorageService } from '../local-storage.service';
 })
 export class LessonsComponent implements OnInit {
 
-  constructor(public getSourcesService: GetSourcesService, private localStorageService: LocalStorageService) {}
+  constructor(public getSourcesService: GetSourcesService,
+    private localStorageService: LocalStorageService,
+    @Inject('window') private window: Window) { }
 
   lessonData: Lesson[] = [];
 
@@ -27,6 +30,7 @@ export class LessonsComponent implements OnInit {
 
   isBlogPost: boolean = false;  //True removes input interface for blog post embeds
   ttsSupported: boolean = false; //Triggers advice to open link in a supported browser
+  thisURL: string = this.window.location.href;
 
 
   ngOnInit() {
@@ -103,9 +107,13 @@ export class LessonsComponent implements OnInit {
     this.lessonTextAreaValue = "";
   }
 
-  copyUrl(): void {
-    navigator.clipboard.writeText(window.location.href);
+  copyUrl(data: string): void {
+      navigator.clipboard.writeText(data)
+      .then(() => {
+        alert("successfully copied");
+      })
+    } 
+
   }
 
-}
 

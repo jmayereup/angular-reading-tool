@@ -1,7 +1,7 @@
 <form>
   <span *ngIf="!isBlogPost" translate="yes">
     <div>You can use this tool to help with reading your own texts.<br>
-      Try going to <a href="https://ai.com" target="_blank">ai.com</a> and ask it for a dialogue or story about
+      Try going to <a href="https://ai.com" target="_blank" rel="noopener">ai.com</a> and ask it for a dialogue or story about
       anything of interest to you.
       <br>Then paste the results in the box below.
       <br><br><strong>Example Prompt:</strong> Please create a short and easy dialogue between two people discussing a
@@ -14,29 +14,32 @@
     </div>
     <div class="grid-box select">
       <select #language name="selectedLanguage" [(ngModel)]="selectedLanguage">
-        <option value="zh-CN">Chinese (Simplified)</option>
-        <option value="nl-NL">Dutch (Netherlands)</option>
+        <option value="ar-SA">Arabic</option>
+        <option value="zh-CN">Chinese</option>
+        <option value="nl-NL">Dutch</option>
         <option value="en-CA" selected>English</option>
         <option value="en-US">English 2</option>
-        <option value="fil-PH">Filipino (Philippines)</option>
-        <option value="fr-FR">French (France)</option>
-        <option value="de-DE">German (Germany)</option>
-        <option value="it-IT">Italian (Italy)</option>
-        <option value="ja-JP">Japanese (Japan)</option>
-        <option value="pt-PT">Portuguese (Portugal)</option>
-        <option value="ru-RU">Russian (Russia)</option>
+        <option value="fil-PH">Filipino</option>
+        <option value="fr-FR">French</option>
+        <option value="de-DE">German</option>
+        <option value="hi-IN">Hindi</option>
+        <option value="it-IT">Italian</option>
+        <option value="ja-JP">Japanese</option>
+        <option value="ko-KR">Korean</option>
+        <option value="pt-PT">Portuguese</option>
+        <option value="ru-RU">Russian</option>
         <option value="es-ES">Spanish (Spain)</option>
         <option value="es-MX">Spanish (Mexico)</option>
-        <option value="th-TH">Thai (Thailand)</option>
-        <option value="uk-UA">Ukrainian (Ukraine)</option>
-      </select><label translate="yes">Speech Voice: </label>
+        <option value="th-TH">Thai</option>
+        <option value="uk-UA">Ukrainian</option>
+      </select><label translate="yes">Speech Voice</label>
     </div>
     <div *ngIf="!ttsSupported" translate="yes" class="warning">
       <strong>SPEECH NOT SUPPORTED:
         Your current browser does not support text to speech.</strong>
-      If you want to use the "speak" feature, please click this button.
-      <button class="copy-button" (click)="copyUrl()">Copy URL</button> Next, paste it into a browswer
-      that supports text to speech (E.g. Chrome, Edge, Firefox, or Safari).
+      If you want to use the "speak" feature, please copy this URL: 
+      <input id="urlId" (click)="copyUrl(thisURL)" value="{{thisURL}}"> and then 
+      paste it into a browser that supports text to speech (E.g. Chrome, Edge, Firefox, or Safari).
 
     </div>
   </div>
